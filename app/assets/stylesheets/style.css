@@ -1,0 +1,91 @@
+/*
+KULER COLORS
+36362C Dark Green
+5D917D Teal
+A8AD80 Olive
+E6D4A7 Beige
+825534 Brown
+
+FLAT DESIGN COLORS
+#ecf0f1 Clouds
+
+FOUNDATION UI COLORS
+#333333 Dark Dark Grey
+*/
+
+
+/*BEGIN MAIN STYLES*/
+
+::selection {
+	background: #825534;
+	color: #FFFFFF;
+}
+::-moz-selection {
+	background: #E6D4A7;
+	color: #FFFFFF;
+}
+html {
+	font-family: 'Open Sans', sans-serif;
+}
+body {
+	background: #333333;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'perpetua', serif;
+}
+a:link,
+a:visited {
+	color: #ecf0f1;
+	text-decoration: underline;
+}
+a:hover,
+a:active {
+	color: #E6D4A7;
+}
+header {}
+header a h1 {
+	text-decoration:none;
+}
+header h1 img {
+	margin-right: 15px;
+}
+#hero-body-wrapper {
+	background: #825534;
+	color: #ECF0F1;
+	background-image: url(http://www.transparenttextures.com/patterns/diamond-upholstery.png);
+}
+#hero-content {
+	padding: 15px 0 15px 0;
+	text-align: center;
+}
+#hero-content h1 {
+	font-size: 5em;
+	color: #E6D4A7;
+}
+#events-body-wrapper {}
+footer {}
+
+/*BEGIN FOUNDATION OVERRIDES*/
+
+button,
+.button {
+	text-decoration: none !important;
+}
+.button.hollow {
+	border-width: 2px;
+	border-color: #ecf0f1;
+	background: none;
+}
+.button.hollow:hover {
+	border-color: #E6D4A7;
+	color: #E6D4A7;
+}
+
+/*END FOUNDATION OVERRIDES*/
