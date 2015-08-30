@@ -5,5 +5,6 @@ class WelcomeController < ActionController::Base
 	layout "hero"
 	
 	def index
+		@title = "Jizo - Connect to Facebook and get directions to your events!"
 	end
 end
