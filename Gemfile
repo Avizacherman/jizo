@@ -1,5 +1,11 @@
 source 'https://rubygems.org'
 
+# FB Authorization gems
+gem "koala", "~>1.10.0rc"
+gem 'omniauth-facebook'
+
+# Switch to Pry as default console
+gem "pry-rails"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
