@@ -1,13 +1,35 @@
-
-	<div id="hero-content" class="row">
-		<div class="small-12 columns">
-			<img src="<%= asset_path 'hero-logo.png' %>" class="left" />
-			<h1>Welcome to Jizo!</h1>
-			<p><a href="https://en.wikipedia.org/wiki/Ksitigarbha" target="_blank">Jizo</a> (pronounced G - ZO) protective deity of travelers. Jizo is also a place where you can easily get and save directions to your facebook events!</p>
-			<p>Give it a try!</p>
-			<a href="#" class="button hollow">Default Button</a>
+<div id="hero-body-wrapper">
+	<div id="hero-content">
+		<div class="vertical-magic">
+			<div id="hero-top" class="row">
+				<div class="small-12 medium-4 columns">
+					<img src="<%= asset_path 'hero-logo.png' %>"/>
+				</div>
+				<div class="small-12 medium-8 columns">
+					<h1>Jizo!</h1>
+					<p><a href="https://en.wikipedia.org/wiki/Ksitigarbha" target="_blank">Jizo</a> (pronounced Jizō) protective deity of travelers.</p>
+					<p>Jizo is also a place where you can easily get and save directions to your facebook events!</p>
+					<p>Give it a try!</p>
+					<a href="/auth/facebook" class="button">Login with Facebook</a>
+				</div>
+			</div>
+			<div id="hero-bottom" class="row">
+				<div class="small-12 medium-4 columns">
+					<h2>Login with Facebook</h2>
+					<i class="fa fa-facebook-official"></i>
+				</div>
+				<div class="small-12 medium-4 columns">
+					<h2>Chose your event</h2>
+					<i class="fa fa-list"></i>
+				</div>
+				<div class="small-12 medium-4 columns">
+					<h2>Get your directions</h2>
+					<i class="fa fa-location-arrow"></i>
+				</div>
+			</div>
 		</div>
 	</div>
+</div>
 
 
 
