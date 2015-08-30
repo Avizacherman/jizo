@@ -4,6 +4,9 @@ source 'https://rubygems.org'
 gem "koala", "~>1.10.0rc"
 gem 'omniauth-facebook'
 
+
+# HTTParty HARD!!!
+gem "httparty"
 # Switch to Pry as default console
 gem "pry-rails"
 
