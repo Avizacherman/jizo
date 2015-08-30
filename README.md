@@ -36,7 +36,8 @@ Coming soon
 
 [ERD](http://i.imgur.com/CYBR5dX.jpg)
 
-
+###Trello
+Link to board: https://trello.com/b/8jWxfMiI/jizo
 #Contact
 
 #####Aditi Parsad
