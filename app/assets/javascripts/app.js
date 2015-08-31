@@ -1,4 +1,22 @@
 $(document).ready(function () {
+
+    $(".hasLocation").each(function(){
+       var lat = parseFloat($(this).attr("lat"))
+       var lng = parseFloat($(this).attr("lng"))
+        $(this).on("click", function(){
+        map = new google.maps.Map($('#map')[0], {
+        center: {lat:  lat, lng: lng},
+        zoom: 15
+            }); 
+
+        marker = new google.maps.Marker({
+            position: {lat:  lat, lng: lng},
+            label: "E",
+            map: map
+            })
+        })
+    }) 
+
     verticalMagic();
 });
 //HOMEPAGE CENTERING
