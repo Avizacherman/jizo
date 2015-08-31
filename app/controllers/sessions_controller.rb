@@ -3,13 +3,11 @@ class SessionsController < ApplicationController
 
 
 def set_session
-	access_token = authorize_token(request.env['omniauth.auth']['credentials'])
-	session[:access_token] = access_token
-	facebook_data = HTTParty.get("https://graph.facebook.com/me?fields=name,id,picture&access_token=#{session[:access_token]}").parsed_response['data']
-	if !User.find_by(:access_token => session[:access_token])
-		puts facebook_data
-	end
+	access_token = request.env['omniauth.auth']['credentials']['token']
 
+	session[:access_token] = access_token
+	puts "session - #{session[:access_token]}"
+   attach_user                                                                                                                                        
 	if URI(request.referer).path == '/' 
 		redirect_to '/events'
 	else
@@ -17,15 +15,28 @@ def set_session
 	end
 end
 
+def session_error
+	flash[:error] = "Authentication Error"
+	puts flash[:error]
+	redirect_to URI(request.referer).path
+
+end
+
 def end_session
 	session[:access_token] = nil
 end
 
-private 
-	 def authorize_token(auth)
-		 	access_token = auth['token']
-	 		return access_token
- 		end
+private
+	def attach_user
+		facebook_data = HTTParty.get("https://graph.facebook.com/me?access_token=#{session[:access_token]}&fields=picture,id,name").parsed_response 
+
+		if !User.find_by({:access_token => session[:access_token]}) && User.find_by({:fb_id => facebook_data["id"]})		
+		user = User.find_by({:fb_id => facebook_data["id"]})
+		user.update({:access_token => session[:access_token]})		
+	elsif !User.find_by({:fb_id => facebook_data["id"]}) 		
+		user = User.create({:access_token => session[:access_token], :fb_id => facebook_data["id"], :fb_name => facebook_data['name'], :fb_pic => facebook_data['picture']['data']['url']})
+		end
+	end
 
 
 end

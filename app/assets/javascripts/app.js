@@ -1,4 +1,42 @@
 $(document).ready(function () {
+
+    var yourLat
+    var yourLng
+
+    navigator.geolocation.getCurrentPosition(function(pos){
+        yourLat = pos.coords.latitude
+        yourLng = pos.coords.longitude
+    })
+
+     setTimeout( function(){ 
+      baseMap = new google.maps.Map($('#map')[0], {
+        center: {lat:  yourLat, lng: yourLng},
+        zoom: 15
+            }); 
+        baseMarker = new google.maps.Marker({
+            position: {lat:  yourLat, lng: yourLng},
+             label: "U",
+            map: baseMap
+        })
+  }, 4000)
+
+    $(".hasLocation").each(function(){
+       var lat = parseFloat($(this).attr("lat"))
+       var lng = parseFloat($(this).attr("lng"))
+        $(this).on("click", function(){
+        map = new google.maps.Map($('#map')[0], {
+        center: {lat:  lat, lng: lng},
+        zoom: 15
+            }); 
+
+        marker = new google.maps.Marker({
+            position: {lat:  lat, lng: lng},
+            label: "E",
+            map: map
+            })
+        })
+    }) 
+
     verticalMagic();
 });
 //HOMEPAGE CENTERING

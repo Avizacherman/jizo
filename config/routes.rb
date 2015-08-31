@@ -8,12 +8,14 @@ Rails.application.routes.draw do
   # Example of regular route:
 	get 'events' => 'events#index'
 	get 'events/:id' => 'events#view'
-
   get 'auth/facebook', as: 'auth_provider'
   get 'auth/facebook/callback' => 'sessions#set_session'
 
+  get '/auth/failure' => 'sessions#session_error'
 	#   Example of named route that can be invoked with purchase_url(id: product.id)
 	#     get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+	
+	
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

@@ -5,5 +5,13 @@ class EventsController < ActionController::Base
 	layout "events"
 	
 	def index
+
+		@title = "Jizo - My Events"
+		@events = get_events
 	end
+
+	def get_events
+		events = HTTParty.get("https://graph.facebook.com/me/events?access_token=#{session[:access_token]}").parsed_response['data']
+	end
+
 end

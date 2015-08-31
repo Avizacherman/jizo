@@ -1,5 +1,38 @@
-<section>
-	<h2>This is a test of the events page</h2> 
-		<h2>This is a test of the events page</h2> 
-
-</section>
+<div id="events-body-wrapper">
+	<div id="events-body-content" class="row">
+		<div id="events-list-wrapper" class="small-12 medium-6 medium-push-6 columns">
+			<div id="events-list-content">
+				<h2>Events List</h2>
+				<ul class="accordion" data-accordion>
+					<% @events.each do |event| %>
+					<li class="accordion-navigation">
+						<% if event['place'] && event['place']['location']%>
+						<a class="hasLocation" lat="<%=event['place']['location']['latitude']%>" lng="<%=event['place']['location']['longitude']%>" href="#panel<%=event['id']%>a"> <%=event['name']%></a>
+						<%= render partial: "event_info", locals: {event: event} %>
+						<% else %>
+							<a href="#panel<%=event['id']%>a"> <%=event['name']%></a>
+										<%= render partial: "event_info", locals: {event: event} %>
+						<% end %>
+					</li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+		<div class="small-12 medium-6 medium-pull-6 columns">
+			<div class="row">
+				<div id="event-map-wrapper" class="small-12 columns">
+					<div id="event-map-content">
+					<h2>Map</h2>
+						<div id="map">
+						</div>
+					</div>
+				</div>
+				<div id="event-directions-wrapper" class="small-12 columns">
+					<div id="event-directions-content">
+						<h2>Directions</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
