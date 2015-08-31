@@ -4,10 +4,10 @@ class SessionsController < ApplicationController
 
 def set_session
 	access_token = request.env['omniauth.auth']['credentials']['token']
+
 	session[:access_token] = access_token
-
+	puts "session - #{session[:access_token]}"
    attach_user                                                                                                                                        
-
 	if URI(request.referer).path == '/' 
 		redirect_to '/events'
 	else
