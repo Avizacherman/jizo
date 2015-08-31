@@ -5,7 +5,9 @@ class EventsController < ActionController::Base
 	layout "events"
 	
 	def index
-		find_location
+
+		@title = "Jizo - My Events"
+
 	end
 
 	def get_events
