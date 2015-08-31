@@ -18,7 +18,6 @@ end
 def session_error
 	flash[:error] = "Authentication Error"
 	puts flash[:error]
-	puts params
 	redirect_to URI(request.referer).path
 
 end
