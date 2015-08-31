@@ -5,5 +5,6 @@ class EventsController < ActionController::Base
 	layout "events"
 	
 	def index
+		@title = "Jizo - My Events"
 	end
 end
