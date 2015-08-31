@@ -7,7 +7,7 @@
 					<% @events.each do |event| %>
 					<li class="accordion-navigation">
 						<% if event['place'] && event['place']['location']%>
-						<a lat="<%=event['place']['location']['latitude']%>" lng="<%=event['place']['location']['longitude']%>" href="#panel<%=event['id']%>a"> <%=event['name']%></a>
+						<a class="hasLocation" lat="<%=event['place']['location']['latitude']%>" lng="<%=event['place']['location']['longitude']%>" href="#panel<%=event['id']%>a"> <%=event['name']%></a>
 						<%= render partial: "event_info", locals: {event: event} %>
 						<% else %>
 							<a href="#panel<%=event['id']%>a"> <%=event['name']%></a>
