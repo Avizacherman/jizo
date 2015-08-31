@@ -4,48 +4,17 @@
 			<div id="events-list-content">
 				<h2>Events List</h2>
 				<ul class="accordion" data-accordion>
+					<% @events.each do |event| %>
 					<li class="accordion-navigation">
-						<a href="#panel1a">India's 1st Red Bull Soapbox Race : Mumbai 2012</a>
-						<div id="panel1a" class="content">
-							<div class="description"> 
-								<p>
-									Date of the Event: December 2, 2012
-									Start Time: 11 A.M.
-									Venue: Mount Mary Road, Bandra, Mumbai
-								</p>
-								<p>Buckle up Mumbai and get ready for a bumpy ride because India’s 1st Red Bull Soapbox Race is here!</p>
-								<p>What is the Red Bull Soapbox Race you ask? It’s only the craziest Gravity powered race in the world. Amateur drivers, in homemade funky carts, taking on twists and turns on downhill roads. It’s a promise of crazy costumes, sumptuous crashes, hilarious chaos and a whole lot of entertainment.Through 77 cities in 40 countries, the Red Bull Soapbox Race has shown us some of the most eccentric tiffin-boxes-on-wheels – and now we’re expecting India to give us her creative best!</p>
-								<p>So mark your calendar for December the 2nd and head down to Mount Mary, Bandra for a day packed with soapbox madness. Oh! And don’t forget to bring your Wiiings!</p>
-							</div>
-							<div class="start-time">
-								<p><span>Start Time:</span> 2012-12-02T11:00:00+0100</p>
-							</div>
-							<div class="end-time">
-								<p><span>End Time:</span> 2012-12-02T18:00:00+0100</p>
-							</div>
-							<div class="attending">
-								<p><span>Attending:</span>8142</p>
-							</div>
-							<div class="maybe">
-								<p><span>Maybe:</span>1180</p>
-							</div>
-							<div class="no-reply">
-								<p><span>No-reply:</span>16197</p>
-							</div>
-						</div>
+						<% if event['place'] && event['place']['location']%>
+						<a lat="<%=event['place']['location']['latitude']%>" lng="<%=event['place']['location']['longitude']%>" href="#panel<%=event['id']%>a"> <%=event['name']%></a>
+						<%= render partial: "event_info", locals: {event: event} %>
+						<% else %>
+							<a href="#panel<%=event['id']%>a"> <%=event['name']%></a>
+										<%= render partial: "event_info", locals: {event: event} %>
+						<% end %>
 					</li>
-					<li class="accordion-navigation">
-						<a href="#panel2a">Title</a>
-						<div id="panel2a" class="content">
-							Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-						</div>
-					</li>
-					<li class="accordion-navigation">
-						<a href="#panel3a">Title</a>
-						<div id="panel3a" class="content">
-							Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-						</div>
-					</li>
+					<% end %>
 				</ul>
 			</div>
 		</div>
