@@ -134,18 +134,20 @@ header h1 img {
 	padding: 15px;
 	background: #825534;
 	background-image: url(http://www.transparenttextures.com/patterns/diamond-upholstery.png);
+	position: relative;
 }
 #events-body-content {
 	padding: 15px 0 15px 0;
 	background: #333333;
 	border: 1px solid #E6D4A7;
 }
+#events-body-content.row {
+	max-width: 100%;
+	min-height: 100%;
+}
 #events-body-content h2 {
 	color: #e6d4a7;
 	margin: 0;
-}
-#events-body-content.row {
-	max-width: 100%;
 }
 #events-list-wrapper {}
 #events-list-content {
@@ -176,8 +178,8 @@ header h1 img {
 }
 #events-list-content .accordion .accordion-navigation > .content.active,
 #events-list-content .accordion dd > .content.active {
-	background: #E6D4A7;
-	color: #333333;
+	background: #3F3F3F;
+	color: #E6D4A7;
 }
 
 /*END ACCORDION OVERRIDE*/

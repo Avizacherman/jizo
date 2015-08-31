@@ -1,7 +1,5 @@
 class SessionsController < ApplicationController
-
-
-
+	
 def set_session
 	access_token = request.env['omniauth.auth']['credentials']['token']
 
@@ -19,11 +17,11 @@ def session_error
 	flash[:error] = "Authentication Error"
 	puts flash[:error]
 	redirect_to URI(request.referer).path
-
 end
 
 def end_session
-	session[:access_token] = nil
+	reset_session
+	redirect_to '/'
 end
 
 private
