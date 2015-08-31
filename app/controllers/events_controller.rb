@@ -7,7 +7,7 @@ class EventsController < ActionController::Base
 	def index
 
 		@title = "Jizo - My Events"
-
+		@events = get_events
 	end
 
 	def get_events

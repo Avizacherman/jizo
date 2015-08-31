@@ -238,3 +238,8 @@ ul {
 }
 
 /*END FOUNDATION OVERRIDES*/
+
+#map {
+	height: 400px;
+	width: 100%;
+}
