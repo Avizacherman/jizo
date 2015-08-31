@@ -55,9 +55,7 @@ a:active {
 	color: #E6D4A7;
 }
 header {
-	position: fixed;
-	z-index: 9999999;
-	width: 100%;
+	border-bottom: 1px solid #E6D4A7;
 }
 header a h1 {
 	text-decoration: none;
@@ -75,6 +73,9 @@ header h1 img {
 .top-bar-section ul li > a.button:focus {
 	background-color: #0e1f5b;
 }
+
+/*BEGIN HERO PAGE*/
+
 #hero-body-wrapper {
 	min-height: 100%;
 	width: 100%;
@@ -84,45 +85,135 @@ header h1 img {
 	background-image: url(http://www.transparenttextures.com/patterns/diamond-upholstery.png);
 	position: relative;
 }
-#hero-content {
+#hero-body-content {
 	text-align: center;
 }
-#hero-content img {
+#hero-body-content img {
 	padding-right: 15px;
 }
-#hero-content h1 {
+#hero-body-content h1 {
 	font-size: 5em;
 	color: #E6D4A7;
 }
-#hero-content h2 {
+#hero-body-content h2 {
 	color: #E6D4A7;
 }
-#hero-content p {
+#hero-body-content p {
 	font-size: 1.5em;
 }
-#hero-content .button {
+#hero-body-content .button {
 	background: #3b5998;
 }
-#hero-content .button:hover {
+#hero-body-content .button:hover {
 	background: #0e1f5b;
 }
-#hero-content i {
+#hero-body-content i {
 	font-size: 7em;
 }
-#hero-content i.fa-facebook-official {
+#hero-body-content i.fa-facebook-official {
 	color: #3b5998;
 }
-#hero-content i.fa-list {
+#hero-body-content i.fa-list {
 	color: #ecf0f1;
 }
-#hero-content i.fa-location-arrow {
+#hero-body-content i.fa-location-arrow {
 	color: #6d84b4;
 }
 #hero-top {
 	padding-bottom: 15px;
 }
 #hero-bottom {}
-#events-body-wrapper {}
+
+/*END HERO PAGE*/
+
+
+/*BEGIN EVENTS PAGE*/
+
+#events-body-wrapper {
+	min-height: 100%;
+	padding: 15px;
+	background: #825534;
+	background-image: url(http://www.transparenttextures.com/patterns/diamond-upholstery.png);
+}
+#events-body-content {
+	padding: 15px 0 15px 0;
+	background: #333333;
+	border: 1px solid #E6D4A7;
+}
+#events-body-content h2 {
+	color: #e6d4a7;
+	margin: 0;
+}
+#events-body-content.row {
+	max-width: 100%;
+}
+#events-list-wrapper {}
+#events-list-content {
+	padding: 15px;
+}
+
+/*BEGIN ACCORDION OVERRIDE*/
+
+#events-list-content .accordion .accordion-navigation,
+#events-list-content .accordion dd {
+	border: 1px solid #E6D4A7;
+	border-bottom: 0;
+}
+#events-list-content .accordion .accordion-navigation:last-child,
+#events-list-content .accordion dd:last-child {
+	border-bottom: 1px solid #E6D4A7;
+}
+#events-list-content .accordion .accordion-navigation > a,
+#events-list-content .accordion dd > a {
+	background: #825534;
+	color: #ecf0f1;
+	text-decoration: none;
+}
+#events-list-content .accordion .accordion-navigation > a:hover,
+#events-list-content .accordion dd > a:hover {
+	background: #E6D4A7;
+	color: #333333;
+}
+#events-list-content .accordion .accordion-navigation > .content.active,
+#events-list-content .accordion dd > .content.active {
+	background: #E6D4A7;
+	color: #333333;
+}
+
+/*END ACCORDION OVERRIDE*/
+
+
+/*BEGIN ACCORDION DESCRIPTION STYLES*/
+
+#events-list-content .start-time p span {
+	font-weight: 700;
+}
+#events-list-content .end-time p span {
+	font-weight: 700;
+}
+#events-list-content .attending p span {
+	font-weight: 700;
+}
+#events-list-content .maybe p span {
+	font-weight: 700;
+}
+#events-list-content .no-reply p span {
+	font-weight: 700;
+}
+
+/*BEGIN ACCORDION DESCRIPTION STYLES*/
+
+#event-map-wrapper {}
+#event-map-content {
+	padding: 15px;
+}
+#event-directions-wrapper {}
+#event-directions-content {
+	padding: 15px;
+}
+
+/*END EVENTS PAGE*/
+
 footer {}
 
 /*BEGIN FOUNDATION OVERRIDES*/
@@ -139,6 +230,9 @@ button,
 .button.hollow:hover {
 	border-color: #E6D4A7;
 	color: #E6D4A7;
+}
+ul {
+	margin-left: 0;
 }
 
 /*END FOUNDATION OVERRIDES*/
