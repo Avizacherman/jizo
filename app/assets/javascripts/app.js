@@ -8,6 +8,7 @@ function initialize() {
 	var bKey = 'AIzaSyDXo_-3dpRQz_yvYHP6yEaYUA1_vYlxglM';
 
 	//GET LOCATION
+
 	navigator.geolocation.getCurrentPosition(function (pos) {
 		yourLat = pos.coords.latitude;
 		yourLng = pos.coords.longitude;
