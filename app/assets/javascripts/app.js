@@ -3,12 +3,11 @@ $(document).on('page:load', initialize);
 
 function initialize() {
 
-	var yourLat;
-	var yourLng;
+	//	var yourLat;
+	//	var yourLng;
 	var bKey = 'AIzaSyDXo_-3dpRQz_yvYHP6yEaYUA1_vYlxglM';
 
 	//GET LOCATION
-
 	navigator.geolocation.getCurrentPosition(function (pos) {
 		yourLat = pos.coords.latitude;
 		yourLng = pos.coords.longitude;
@@ -21,6 +20,8 @@ function initialize() {
 			$("#events-body-content").addClass("show-block");
 			heightMagic();
 
+			//CREATES MAP AND CENTERS ON CURRENT LOCATION
+			//CREATES MAP FRAME
 			baseMap = new google.maps.Map($('#map')[0], {
 				center: {
 					lat: yourLat,
@@ -28,6 +29,7 @@ function initialize() {
 				},
 				zoom: 15
 			});
+			//CREATES MAP MARKER
 			baseMarker = new google.maps.Marker({
 				position: {
 					lat: yourLat,
@@ -39,14 +41,11 @@ function initialize() {
 		}
 	})
 
-	//CREATES MAP AND CENTERS ON CURRENT LOCATION
-
-
+	//IF LOADING METER EXISTS, RUN LOAD METER
 	if ($(".meter")) {
 		var progress = 0;
 		var progressBar = setInterval(function () {
 			progress += 1;
-			console.log(progress);
 			$(".meter").css({
 				"width": progress + '%'
 			});
@@ -59,7 +58,7 @@ function initialize() {
 		}, 40);
 	}
 
-	//PASSES INFO FROM 
+	//PASSES INFO FROM EVENTS LIST TO MAPS AND DIRECTIONS
 	$(".hasLocation").each(function () {
 		var lat = parseFloat($(this).attr("lat"))
 		var lng = parseFloat($(this).attr("lng"))
@@ -72,6 +71,7 @@ function initialize() {
 				zoom: 15
 			});
 
+			//SET MAP MARKER
 			marker = new google.maps.Marker({
 				position: {
 					lat: lat,
@@ -81,7 +81,7 @@ function initialize() {
 				map: map
 			})
 
-
+			//
 			var directionsService = new google.maps.DirectionsService;
 			var directionsDisplay = new google.maps.DirectionsRenderer;
 			directionsDisplay.setMap(map);
@@ -94,82 +94,46 @@ function initialize() {
 				lng: lng
 			})
 
+			//CALL AJAX GET DIRECTIONS ROUTE AND DISPLAY DIRECTIONS 
 			directions = $.get('/get_directions', {
 				origin: yourLat + "," + yourLng,
 				destination: lat + "," + lng
 			}).done(function () {
 				giveDirections(directions.responseJSON.directions)
 			})
-
 		})
 	})
 
-	//Format Dates and Times
-
+//FORMAT DATE AND TIMES
 	$(".start-date-value").each(function () {
 		initialValue = $(this).text()
-		console.log(initialValue)
 		formatedValue = moment(initialValue).format('LL')
 		$(this).text(formatedValue)
 	})
-
-	verticalMagic();
 }
 
-//HOMEPAGE CENTERING - VERTICAL MAGIC
-function verticalMagic() {
-	if ($('.vertical-magic') < 1) {
-		return;
-	}
-	var resizeFunc = function () {
-		var header = $('#header-wrapper');
-		var content = $('.vertical-magic');
-		var wrapper = $(content).closest('#hero-body-wrapper');
-		var content_height = $(content).outerHeight(false);
-		var wrapper_height = $(wrapper).outerHeight(true);
-		var header_height = $(header).outerHeight(true);
-		var height = (wrapper_height - header_height - content_height) / 2;
-
-		content.css({
-			'margin-top': height + 'px',
-			'visibility': 'visible'
-		});
-	};
-
-	resizeFunc();
-	$(window).resize(function () {
-		resizeFunc();
-	});
-}
 //EVENT LIST FULL HEIGHT - HEIGHT MAGIC
 function heightMagic() {
 	if ($('.height-magic') < 1) {
 		return;
 	}
 	var resizeFunc = function () {
-
 		var content = $('.height-magic');
-
 		var header = $('header')
 		var header_height = $(header).outerHeight(true);
-
 		content.css({
 			'display': 'none'
 		});
-
 		var wrapper = $(content).closest('#events-body-content');
 		var wrapper_height = $(wrapper).outerHeight(true);
 		var height = (wrapper_height - header_height - 60);
-
 		content.css({
 			'height': height + 'px',
 			'display': 'block',
 			'overflow-y': 'scroll'
 		});
 	};
-
 	resizeFunc();
-
 	$(window).resize(function () {
 		resizeFunc();
 	});
@@ -188,6 +152,17 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
 			window.alert('Directions request failed due to ' + status);
 		}
 	});
+}
+
+//TAKES DIRECTION OBJECT AND APPENDS THE DIRECTIONS TO DOM
+function giveDirections(obj) {
+	$eventContainer = $("#event-directions-display")
+	$eventContainer.html("")
+	obj.forEach(function (o, index) {
+		var stepNo = index + 1;
+		$div = $('<div class="panel">').attr("id", "step-" + stepNo).html("Go " + o.distance.text + " " + o.html_instructions + " approximately " + o.duration.text)
+		$eventContainer.append($div)
+	})
 }
 
 //FACEBOOK
