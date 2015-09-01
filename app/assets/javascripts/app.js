@@ -20,27 +20,27 @@ function initialize() {
 			$(".progress").addClass("hide");
 			$("#events-body-content").addClass("show-block");
 			heightMagic();
+
+			baseMap = new google.maps.Map($('#map')[0], {
+				center: {
+					lat: yourLat,
+					lng: yourLng
+				},
+				zoom: 15
+			});
+			baseMarker = new google.maps.Marker({
+				position: {
+					lat: yourLat,
+					lng: yourLng
+				},
+				label: "U",
+				map: baseMap
+			});
 		}
 	})
 
 	//CREATES MAP AND CENTERS ON CURRENT LOCATION
-setTimeout(function () {
-		baseMap = new google.maps.Map($('#map')[0], {
-			center: {
-				lat: yourLat,
-				lng: yourLng
-			},
-			zoom: 15
-		});
-		baseMarker = new google.maps.Marker({
-			position: {
-				lat: yourLat,
-				lng: yourLng
-			},
-			label: "U",
-			map: baseMap
-		});
-	}, 4000)
+
 
 	if ($(".meter")) {
 		var progress = 0;
@@ -81,6 +81,7 @@ setTimeout(function () {
 				map: map
 			})
 
+
 			var directionsService = new google.maps.DirectionsService;
 			var directionsDisplay = new google.maps.DirectionsRenderer;
 			directionsDisplay.setMap(map);
@@ -93,8 +94,24 @@ setTimeout(function () {
 				lng: lng
 			})
 
+			directions = $.get('/get_directions', {
+				origin: yourLat + "," + yourLng,
+				destination: lat + "," + lng
+			}).done(function () {
+				giveDirections(directions.responseJSON.directions)
+			})
+
 		})
 	})
+
+//Format Dates and Times
+
+$(".start-date-value").each(function(){
+    initialValue = $(this).text()
+    console.log(initialValue)
+    formatedValue = moment(initialValue).format('LL')
+    $(this).text(formatedValue)
+})
 
 	verticalMagic();
 }
