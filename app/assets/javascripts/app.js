@@ -3,9 +3,9 @@ $(document).on('page:load', initialize);
 
 function initialize() {
 
-	var yourLat,
-		yourLng,
-		bKey = 'AIzaSyDXo_-3dpRQz_yvYHP6yEaYUA1_vYlxglM';
+	var yourLat;
+	var yourLng;
+	var bKey = 'AIzaSyDXo_-3dpRQz_yvYHP6yEaYUA1_vYlxglM';
 
 	//GET LOCATION
 	navigator.geolocation.getCurrentPosition(function (pos) {
@@ -17,13 +17,13 @@ function initialize() {
 				"width": "100%"
 			});
 			$(".progress").addClass("hide");
-			$("#events-body-content").addClass("show-block")
+			$("#events-body-content").addClass("show-block");
 			heightMagic();
 		}
 	})
 
 	//CREATES MAP AND CENTERS ON CURRENT LOCATION
-	var renderMap = setTimeout(function () {
+setTimeout(function () {
 		baseMap = new google.maps.Map($('#map')[0], {
 			center: {
 				lat: yourLat,
@@ -51,7 +51,6 @@ function initialize() {
 			});
 			if (progress >= 100) {
 				clearInterval(progressBar);
-				clearTimeout(renderMap);
 				$(".progress").addClass("hide");
 				$("#events-body-content").addClass("show-block")
 				heightMagic();
