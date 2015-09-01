@@ -104,6 +104,15 @@ function initialize() {
 		})
 	})
 
+//Format Dates and Times
+
+$(".start-date-value").each(function(){
+    initialValue = $(this).text()
+    console.log(initialValue)
+    formatedValue = moment(initialValue).format('LL')
+    $(this).text(formatedValue)
+})
+
 	verticalMagic();
 }
 

@@ -6,11 +6,11 @@
 		</ul>
 	</div>
 	<div class="description"> 
-		<p><span>Date of the Event:</span> <%=event['start_time'] %></p>
+		<p><span>Date of the Event:</span><span class="start-date-value"><%=event['date'] %></span></p>
 		<p><span>Description:</span> <%= event['description'] %></p>
 	</div>
 	<div class="start-time">
-		<p><span>Start Time:</span> 2012-12-02T11:00:00+0100</p>
+		<p><span>Start Time:</span> <span class="start-time-value"> <%=event['start_time'] %></span></p>
 	</div>
 	<div class="end-time">
 		<p><span>End Time:</span> 2012-12-02T18:00:00+0100</p>
