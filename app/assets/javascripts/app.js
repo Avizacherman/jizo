@@ -21,21 +21,21 @@ function initialize() {
 			$("#events-body-content").addClass("show-block");
 			heightMagic();
 
-        baseMap = new google.maps.Map($('#map')[0], {
-            center: {
-                lat: yourLat,
-                lng: yourLng
-            },
-            zoom: 15
-        });
-        baseMarker = new google.maps.Marker({
-            position: {
-                lat: yourLat,
-                lng: yourLng
-            },
-            label: "U",
-            map: baseMap
-        });
+			baseMap = new google.maps.Map($('#map')[0], {
+				center: {
+					lat: yourLat,
+					lng: yourLng
+				},
+				zoom: 15
+			});
+			baseMarker = new google.maps.Marker({
+				position: {
+					lat: yourLat,
+					lng: yourLng
+				},
+				label: "U",
+				map: baseMap
+			});
 		}
 	})
 
@@ -94,21 +94,24 @@ function initialize() {
 				lng: lng
 			})
 
-            directions = $.get('/get_directions', {origin: yourLat +"," + yourLng, destination: lat +"," + lng}).done(function(){
-                giveDirections(directions.responseJSON.directions)
-            })
+			directions = $.get('/get_directions', {
+				origin: yourLat + "," + yourLng,
+				destination: lat + "," + lng
+			}).done(function () {
+				giveDirections(directions.responseJSON.directions)
+			})
 
 		})
 	})
 
-//Format Dates and Times
+	//Format Dates and Times
 
-$(".start-date-value").each(function(){
-    initialValue = $(this).text()
-    console.log(initialValue)
-    formatedValue = moment(initialValue).format('LL')
-    $(this).text(formatedValue)
-})
+	$(".start-date-value").each(function () {
+		initialValue = $(this).text()
+		console.log(initialValue)
+		formatedValue = moment(initialValue).format('LL')
+		$(this).text(formatedValue)
+	})
 
 	verticalMagic();
 }
@@ -156,7 +159,7 @@ function heightMagic() {
 
 		var wrapper = $(content).closest('#events-body-content');
 		var wrapper_height = $(wrapper).outerHeight(true);
-		var height = (wrapper_height - header_height - 15);
+		var height = (wrapper_height - header_height - 60);
 
 		content.css({
 			'height': height + 'px',
@@ -171,7 +174,6 @@ function heightMagic() {
 		resizeFunc();
 	});
 }
-
 
 //GOOGLE MAPS GET AND DISPLAY ROUTE
 function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination) {

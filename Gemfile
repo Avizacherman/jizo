@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby "2.2.2"
+
 # FB Authorization gems
 gem "koala", "~>1.10.0rc"
 gem 'omniauth-facebook'
