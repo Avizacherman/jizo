@@ -1,7 +1,7 @@
 
 //Takes a direction object and appends the directions to the DOM
 function giveDirections(obj){
-	$eventContainer = $("#event-directions-content")
+	$eventContainer = $("#event-directions-display")
 	$eventContainer.html("")
 
 	obj.forEach(function(o, index){
