@@ -6,12 +6,12 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   # Example of regular route:
-	get '/events' => 'events#index'
-	get '/events/:id' => 'events#view'
+  get '/events' => 'events#index'
+  get '/events/:id' => 'events#view'
   get '/auth/facebook', as: 'auth_provider'
   get '/auth/facebook/callback' => 'sessions#set_session'
   get '/auth/failure' => 'sessions#session_error'
-	get '/logout' => 'sessions#end_session'
+  get '/logout' => 'sessions#end_session'
 
   get '/get_directions' => 'directions#get_directions'
 
