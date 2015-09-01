@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'auth/facebook/callback' => 'sessions#set_session'
   get '/auth/failure' => 'sessions#session_error'
 	get '/logout' => 'sessions#end_session'
+
+  get '/get_directions' => 'directions#get_directions'
 	#   Example of named route that can be invoked with purchase_url(id: product.id)
 	#     get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 	
