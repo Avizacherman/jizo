@@ -2,8 +2,8 @@ class SessionsController < ApplicationController
 	
 def set_session
 	access_token = request.env['omniauth.auth']['credentials']['token']
-	puts "paramters: #{params}"
-	puts "access_token: #{access_token}"
+	logger.debug "paramters: #{params}"
+	logger.debug "access_token: #{access_token}"
 	session[:access_token] = access_token
 	puts "session - #{session[:access_token]}"
    attach_user                                                                                                                                        
