@@ -1,9 +1,13 @@
 <div id="events-body-wrapper">
-	<div id="events-body-content" class="row">
+	<%= render "layouts/nav" %>
+	<div class="progress small-12">
+		<span class="meter" style="width: 0%"></span>
+	</div>
+	<div id="events-body-content" class="row hide">
 		<div id="events-list-wrapper" class="small-12 medium-6 medium-push-6 columns">
-			<div id="events-list-content">
+			<div id="events-list-content" class="">
 				<h2>Events List</h2>
-				<ul class="accordion" data-accordion>
+				<ul class="accordion height-magic" data-accordion>
 					<% @events.each do |event| %>
 					<li class="accordion-navigation">
 						<% if event['place'] && event['place']['location']%>
