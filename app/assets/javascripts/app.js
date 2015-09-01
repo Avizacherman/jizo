@@ -3,40 +3,27 @@ $(document).on('page:load', initialize);
 
 function initialize() {
 
-	var yourLat
-	var yourLng
+	var yourLat,
+		yourLng,
+		bKey = 'AIzaSyDXo_-3dpRQz_yvYHP6yEaYUA1_vYlxglM';
 
-	var bKey = 'AIzaSyDXo_-3dpRQz_yvYHP6yEaYUA1_vYlxglM';
-
-	
-	if ($(".meter")) {
-		var progress = 0;
-		var progressBar = setInterval(function () {
-			progress += 1;
-			console.log(progress)
-			$(".meter").css({
-				"width": progress + '%'
-			});
-		}, 40);
-	}
-	
 	//GET LOCATION
 	navigator.geolocation.getCurrentPosition(function (pos) {
-		yourLat = pos.coords.latitude
-		yourLng = pos.coords.longitude
+		yourLat = pos.coords.latitude;
+		yourLng = pos.coords.longitude;
 		if (yourLng) {
-			clearInterval(progressBar)
+			clearInterval(progressBar);
 			$(".meter").css({
 				"width": "100%"
 			});
+			$(".progress").addClass("hide");
+			$("#events-body-content").addClass("show-block")
+			heightMagic();
 		}
 	})
 
-
-
-
 	//CREATES MAP AND CENTERS ON CURRENT LOCATION
-	setTimeout(function () {
+	var renderMap = setTimeout(function () {
 		baseMap = new google.maps.Map($('#map')[0], {
 			center: {
 				lat: yourLat,
@@ -53,6 +40,24 @@ function initialize() {
 			map: baseMap
 		});
 	}, 4000)
+
+	if ($(".meter")) {
+		var progress = 0;
+		var progressBar = setInterval(function () {
+			progress += 1;
+			console.log(progress);
+			$(".meter").css({
+				"width": progress + '%'
+			});
+			if (progress >= 100) {
+				clearInterval(progressBar);
+				clearTimeout(renderMap);
+				$(".progress").addClass("hide");
+				$("#events-body-content").addClass("show-block")
+				heightMagic();
+			}
+		}, 40);
+	}
 
 	//PASSES INFO FROM 
 	$(".hasLocation").each(function () {
@@ -75,10 +80,6 @@ function initialize() {
 				label: "E",
 				map: map
 			})
-
-			//			$.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + yourLat + ',' + yourLng + '&destination=' + lat + ',' + lng + '&key=' + bKey, function(data){
-			//				console.log(data);
-			//			});
 
 			var directionsService = new google.maps.DirectionsService;
 			var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -123,6 +124,39 @@ function verticalMagic() {
 		resizeFunc();
 	});
 }
+//EVENT LIST FULL HEIGHT - HEIGHT MAGIC
+function heightMagic() {
+	if ($('.height-magic') < 1) {
+		return;
+	}
+	var resizeFunc = function () {
+
+		var content = $('.height-magic');
+
+		var header = $('header')
+		var header_height = $(header).outerHeight(true);
+
+		content.css({
+			'display': 'none'
+		});
+
+		var wrapper = $(content).closest('#events-body-content');
+		var wrapper_height = $(wrapper).outerHeight(true);
+		var height = (wrapper_height - header_height - 15);
+
+		content.css({
+			'height': height + 'px',
+			'display': 'block',
+			'overflow-y': 'scroll'
+		});
+	};
+
+	resizeFunc();
+
+	$(window).resize(function () {
+		resizeFunc();
+	});
+}
 
 
 //GOOGLE MAPS GET AND DISPLAY ROUTE
@@ -139,9 +173,6 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
 		}
 	});
 }
-
-
-
 
 //FACEBOOK
 window.fbAsyncInit = function () {

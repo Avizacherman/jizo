@@ -1,24 +1,21 @@
 <div id="panel<%=event['id']%>a" class="content">
-							<div class="description"> 
-								<p>
-									Date of the Event: <%=event['start_time'] %>
-									Start Time: 
-								</p>
-								<%= event['description'] %>
-							</div>
-							<div class="start-time">
-								<p><span>Start Time:</span> 2012-12-02T11:00:00+0100</p>
-							</div>
-							<div class="end-time">
-								<p><span>End Time:</span> 2012-12-02T18:00:00+0100</p>
-							</div>
-							<div class="attending">
-								<p><span>Attending:</span>8142</p>
-							</div>
-							<div class="maybe">
-								<p><span>Maybe:</span>1180</p>
-							</div>
-							<div class="no-reply">
-								<p><span>No-reply:</span>16197</p>
-							</div>
-						</div>
+	<div class="description"> 
+		<p><span>Date of the Event:</span> <%=event['start_time'] %></p>
+		<p><span>Description:</span> <%= event['description'] %></p>
+	</div>
+	<div class="start-time">
+		<p><span>Start Time:</span> 2012-12-02T11:00:00+0100</p>
+	</div>
+	<div class="end-time">
+		<p><span>End Time:</span> 2012-12-02T18:00:00+0100</p>
+	</div>
+	<div class="attending">
+		<p><span>Attending:</span> 8142</p>
+	</div>
+	<div class="maybe">
+		<p><span>Maybe:</span> 1180</p>
+	</div>
+	<div class="no-reply">
+		<p><span>No-reply:</span> 16197</p>
+	</div>
+</div>
