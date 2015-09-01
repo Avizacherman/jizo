@@ -10,8 +10,9 @@ function initialize() {
 
 	//GET LOCATION
 	navigator.geolocation.getCurrentPosition(function(pos){
-		yourLat = pos.coords.latitude
+        yourLat = pos.coords.latitude
 		yourLng = pos.coords.longitude
+
 	})
 	
 	//CREATES MAP AND CENTERS ON CURRENT LOCATION
