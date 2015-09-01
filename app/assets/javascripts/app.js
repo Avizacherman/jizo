@@ -100,6 +100,15 @@ function initialize() {
 				destination: lat + "," + lng
 			}).done(function () {
 				giveDirections(directions.responseJSON.directions)
+				$saveButton = $('<button>').text('Save Directions')
+				$saveButton.on('click', function(){
+					$.post('/save_directions', {
+						origin: yourLat + "," + yourLng,
+						destination: lat + "," + lng,
+						directions_data: $('#event-directions-display').html()
+					 })
+				$('#event-directions-display').append($saveButton)
+				})
 			})
 		})
 	})
