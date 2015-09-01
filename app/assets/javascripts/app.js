@@ -100,18 +100,22 @@ function initialize() {
 				destination: lat + "," + lng
 			}).done(function () {
 				giveDirections(directions.responseJSON.directions)
-				$saveButton = $('<button>').text('Save Directions')
+				$saveButton = $('<button>')
+				$saveButton.text('Save')
 				$saveButton.on('click', function(){
 					$.post('/save_directions', {
 						origin: yourLat + "," + yourLng,
 						destination: lat + "," + lng,
 						directions_data: $('#event-directions-display').html()
 					 })
-				$('#event-directions-display').append($saveButton)
+				})
+				$eventContainer = $("#event-directions-display")
+				$eventContainer.append($saveButton)
+	
 				})
 			})
 		})
-	})
+	
 
 //FORMAT DATE AND TIMES
 	$(".start-date-value").each(function () {
@@ -171,7 +175,9 @@ function giveDirections(obj) {
 		var stepNo = index + 1;
 		$div = $('<div class="panel">').attr("id", "step-" + stepNo).html("Go " + o.distance.text + " " + o.html_instructions + " approximately " + o.duration.text)
 		$eventContainer.append($div)
-	})
+			})
+
+
 }
 
 //FACEBOOK
