@@ -21,21 +21,21 @@ function initialize() {
 			$("#events-body-content").addClass("show-block");
 			heightMagic();
 
-        baseMap = new google.maps.Map($('#map')[0], {
-            center: {
-                lat: yourLat,
-                lng: yourLng
-            },
-            zoom: 15
-        });
-        baseMarker = new google.maps.Marker({
-            position: {
-                lat: yourLat,
-                lng: yourLng
-            },
-            label: "U",
-            map: baseMap
-        });
+			baseMap = new google.maps.Map($('#map')[0], {
+				center: {
+					lat: yourLat,
+					lng: yourLng
+				},
+				zoom: 15
+			});
+			baseMarker = new google.maps.Marker({
+				position: {
+					lat: yourLat,
+					lng: yourLng
+				},
+				label: "U",
+				map: baseMap
+			});
 		}
 	})
 
@@ -94,9 +94,12 @@ function initialize() {
 				lng: lng
 			})
 
-            directions = $.get('/get_directions', {origin: yourLat +"," + yourLng, destination: lat +"," + lng}).done(function(){
-                giveDirections(directions.responseJSON.directions)
-            })
+			directions = $.get('/get_directions', {
+				origin: yourLat + "," + yourLng,
+				destination: lat + "," + lng
+			}).done(function () {
+				giveDirections(directions.responseJSON.directions)
+			})
 
 		})
 	})
