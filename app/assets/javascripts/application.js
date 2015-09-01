@@ -15,4 +15,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require foundation.min
+//= require_tree ../../../vendor/assets/javascripts/moment
 //= require_tree .
