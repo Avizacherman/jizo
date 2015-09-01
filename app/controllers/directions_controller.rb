@@ -19,3 +19,4 @@ def save_directions
 		render nothing: true
 	end
 end
+end
