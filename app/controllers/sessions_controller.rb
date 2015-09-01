@@ -6,11 +6,8 @@ def set_session
 	session[:access_token] = access_token
 	puts "session - #{session[:access_token]}"
    attach_user                                                                                                                                        
-	if URI(request.referer).path == '/' 
-		redirect_to '/events'
-	else
-		redirect_to URI(request.referer).path
-	end
+	redirect_to '/events'
+
 end
 
 def session_error
