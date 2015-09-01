@@ -12,6 +12,7 @@
 //
 //= require vendor/jquery
 //= require vendor/modernizr
+//= require_tree ../../../vendor/assets/javascripts/moment
 //= require jquery_ujs
 //= require turbolinks
 //= require foundation.min
