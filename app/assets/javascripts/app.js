@@ -103,7 +103,7 @@ function initialize() {
 
 		})
 	})
-
+	
 	verticalMagic();
 }
 
@@ -150,7 +150,7 @@ function heightMagic() {
 
 		var wrapper = $(content).closest('#events-body-content');
 		var wrapper_height = $(wrapper).outerHeight(true);
-		var height = (wrapper_height - header_height - 15);
+		var height = (wrapper_height - header_height - 60);
 
 		content.css({
 			'height': height + 'px',
@@ -165,7 +165,6 @@ function heightMagic() {
 		resizeFunc();
 	});
 }
-
 
 //GOOGLE MAPS GET AND DISPLAY ROUTE
 function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination) {

@@ -218,11 +218,28 @@ header h1 img {
 }
 #event-directions-wrapper {}
 #event-directions-content {
+
 	padding: 15px;
-	min-height: 400px;
+	
+}
+#event-directions-display{
+	border: 1px solid #E6D4A7;
+	min-height: 375px;
+	max-height: 375px;
 	overflow-y: scroll;
 }
 
+#event-directions-display .panel{
+	margin-bottom:0;
+	background: #825534;
+	color: #ecf0f1;
+	border: 0;
+	border-bottom: 1px solid #E6D4A7;
+	text-decoration: none;
+}
+#event-directions-display .panel:last-child{
+	border-bottom: none;
+}
 /*END EVENTS PAGE*/
 
 footer {}
@@ -265,7 +282,7 @@ ul {
 /*BEGIN GOOGLE MAPS*/
 
 #map {
-	height: 400px;
+	height: 375px;
 	width: 100%;
 	border: 1px solid #E6D4A7;
 }
