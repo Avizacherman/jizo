@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   get '/get_directions' => 'directions#get_directions'
 
-  get '/deactive_app'
+  post '/deactivate_app' => 'users#delete'
 	#   Example of named route that can be invoked with purchase_url(id: product.id)
 	#     get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 	
