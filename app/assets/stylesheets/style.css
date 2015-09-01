@@ -31,11 +31,14 @@ FOUNDATION UI COLORS
 	background: #E6D4A7;
 	color: #FFFFFF;
 }
+html {
+	min-height: 100%;
+}
 body {
 	background: #333333;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
-	font-size: 16px
+	font-size: 16px min-height: 100%
 }
 h1,
 h2,
@@ -55,7 +58,9 @@ a:active {
 	color: #E6D4A7;
 }
 header {
-	border-bottom: 1px solid #E6D4A7;
+	border: 1px solid #E6D4A7;
+	border-bottom: 0;
+/*	border-bottom: 1px solid #E6D4A7;*/
 }
 header a h1 {
 	text-decoration: none;
@@ -134,18 +139,20 @@ header h1 img {
 	padding: 15px;
 	background: #825534;
 	background-image: url(http://www.transparenttextures.com/patterns/diamond-upholstery.png);
+	position: relative;
 }
 #events-body-content {
 	padding: 15px 0 15px 0;
 	background: #333333;
 	border: 1px solid #E6D4A7;
 }
+#events-body-content.row {
+	max-width: 100%;
+	min-height: 100%;
+}
 #events-body-content h2 {
 	color: #e6d4a7;
 	margin: 0;
-}
-#events-body-content.row {
-	max-width: 100%;
 }
 #events-list-wrapper {}
 #events-list-content {
@@ -176,8 +183,8 @@ header h1 img {
 }
 #events-list-content .accordion .accordion-navigation > .content.active,
 #events-list-content .accordion dd > .content.active {
-	background: #E6D4A7;
-	color: #333333;
+	background: #3F3F3F;
+	color: #E6D4A7;
 }
 
 /*END ACCORDION OVERRIDE*/
@@ -185,6 +192,12 @@ header h1 img {
 
 /*BEGIN ACCORDION DESCRIPTION STYLES*/
 
+#event-list-content > p span {
+	font-weight: 700;
+	color: #ecf0f1;
+}
+
+/*
 #events-list-content .start-time p span {
 	font-weight: 700;
 }
@@ -200,6 +213,8 @@ header h1 img {
 #events-list-content .no-reply p span {
 	font-weight: 700;
 }
+*/
+
 
 /*BEGIN ACCORDION DESCRIPTION STYLES*/
 
@@ -210,6 +225,8 @@ header h1 img {
 #event-directions-wrapper {}
 #event-directions-content {
 	padding: 15px;
+	min-height: 400px;
+	overflow-y:scroll;
 }
 
 /*END EVENTS PAGE*/
@@ -234,10 +251,60 @@ button,
 ul {
 	margin-left: 0;
 }
+.progress {
+	background: #3F3F3F;
+	border: 1px solid #E6D4A7;
+}
+.progress .meter {
+	background: #E6D4A7;
+}
+.hide {
+	display: none !important;
+}
+.show-block {
+	display: block !important;
+}
 
 /*END FOUNDATION OVERRIDES*/
+
+
+/*BEGIN GOOGLE MAPS*/
 
 #map {
 	height: 400px;
 	width: 100%;
+	border: 1px solid #E6D4A7;
 }
+
+/*END GOOGLE MAPS*/
+
+
+
+/*BEGIN CLEAN SCROLLBARS*/
+/* Turn on custom 8px wide scrollbar */
+::-webkit-scrollbar {
+	width: 10px; /* 1px wider than Lion. */
+	/* This is more usable for users trying to click it. */
+	background-color: rgba(0,0,0,0);
+	-webkit-border-radius: 100px;
+}
+/* hover effect for both scrollbar area, and scrollbar 'thumb' */
+::-webkit-scrollbar:hover {
+	background-color: rgba(0, 0, 0, 0.09);
+}
+
+/* The scrollbar 'thumb' ...that marque oval shape in a scrollbar */
+::-webkit-scrollbar-thumb:vertical {
+	/* This is the EXACT color of Mac OS scrollbars. 
+	Yes, I pulled out digital color meter */
+	background: rgba(0,0,0,0.5);
+	-webkit-border-radius: 100px;
+	background-clip: padding-box;
+	border: 2px solid rgba(0, 0, 0, 0);
+	min-height: 10px; /*Prevent it from getting too small */
+}
+::-webkit-scrollbar-thumb:vertical:active {
+	background: rgba(0,0,0,0.61); /* Some darker color when you click it */
+	-webkit-border-radius: 100px;
+}
+/*END CLEAN SCROLLBARS*/
