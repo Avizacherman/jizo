@@ -1,4 +1,10 @@
 <div id="panel<%=event['id']%>a" class="content">
+	<div class="links">
+		<ul class="inline-list show-for-small-only">
+			<li><a href="#event-map-wrapper">Go To Map</a></li>
+			<li><a href="#event-directions-wrapper">Go To Directions</a></li>
+		</ul>
+	</div>
 	<div class="description"> 
 		<p><span>Date of the Event:</span> <%=event['start_time'] %></p>
 		<p><span>Description:</span> <%= event['description'] %></p>

@@ -96,6 +96,14 @@ setTimeout(function () {
 		})
 	})
 
+	
+	$('.perfect-scroll').perfectScrollbar();          // Initialize
+//	$('.perfect-scroll').perfectScrollbar({ ... });   // with options
+//	$('.perfect-scroll').perfectScrollbar('update');  // Update
+//	$('.perfect-scroll').perfectScrollbar('destroy'); // Destroy
+	
+	
+	
 	verticalMagic();
 }
 
