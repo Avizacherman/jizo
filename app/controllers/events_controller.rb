@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  # protect_from_forgery with: :exception
+  protect_from_forgery with: :exception
 	layout "events"
 	before_action :is_logged_in, only: [:index]
 	
@@ -11,6 +11,7 @@ class EventsController < ApplicationController
 	end
 
 	def get_events
+		# HTTP Request to FB to get events
 		events = HTTParty.get("https://graph.facebook.com/me/events?access_token=#{session[:access_token]}").parsed_response['data']
 		parse_events(events)
 	end
@@ -18,6 +19,8 @@ class EventsController < ApplicationController
 
 	private
 
+
+	## Parses the events so they have a date and start time seperation
 	def parse_events(events)
 		parsed_events = Array.new
 

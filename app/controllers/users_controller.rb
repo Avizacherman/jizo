@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+
+	# Receive a HTTP POST Request from Facebook when someone de-authorizes the app and deletes that user from our DB
 	def delete
 		signed_request = params[:signed_request]
 		encrypted_string = signed_request.split('.')[1]

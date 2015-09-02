@@ -124,7 +124,11 @@ function initialize() {
 		formatedValue = moment(initialValue).format('LL')
 		$(this).text(formatedValue)
 	})
+	autoLoadPrivacy()
+
 }
+//END OF INITIALIZE
+
 
 //EVENT LIST FULL HEIGHT - HEIGHT MAGIC
 function heightMagic() {
@@ -204,3 +208,10 @@ window.fbAsyncInit = function () {
 	js.src = "//connect.facebook.net/en_US/sdk.js";
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+//MODAL AUTOLOADS
+function autoLoadPrivacy(){
+	if(window.location.hash === "#privacy") {
+		$('#privacy-policy').foundation('reveal', 'open')
+	}
+}
