@@ -11,5 +11,12 @@ def get_directions
 		render json:  {:directions => directions}
 	# end
 end
-
+def save_directions 
+	if request.xhr?
+		user = User.find_by({:access_token => session[:access_token]})
+		directions = Direction.create({:origin => params[:origin], :destination => params[:destination], :user_id => user.id, :directions_data => params[:directions_data]})
+		puts directions
+		render nothing: true
+	end
+end
 end
