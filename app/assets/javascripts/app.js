@@ -124,8 +124,10 @@ function initialize() {
 		formatedValue = moment(initialValue).format('LL')
 		$(this).text(formatedValue)
 	})
-	autoLoadPrivacy()
-
+	
+	if(window.location.hash === "#privacy") {
+		$('#privacy-policy').foundation('reveal', 'open')
+	}
 }
 //END OF INITIALIZE
 
@@ -209,9 +211,4 @@ window.fbAsyncInit = function () {
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-//MODAL AUTOLOADS
-function autoLoadPrivacy(){
-	if(window.location.hash === "#privacy") {
-		$('#privacy-policy').foundation('reveal', 'open')
-	}
-}
+

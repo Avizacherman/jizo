@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   # Example of regular route:
+
   get '/events' => 'events#index'
   get '/events/:id' => 'events#view'
   get '/auth/facebook', as: 'auth_provider'
