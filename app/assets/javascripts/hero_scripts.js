@@ -3,6 +3,7 @@ $(document).on('page:load', initialize);
 
 function initialize() {
 	verticalMagic();
+	autoLoadPrivacy();
 }
 
 //HOMEPAGE CENTERING - VERTICAL MAGIC
@@ -25,4 +26,12 @@ function verticalMagic() {
 	$(window).resize(function () {
 		resizeFunc();
 	});
+}
+
+
+//MODAL AUTOLOADS
+function autoLoadPrivacy(){
+	if(window.location.hash === "#privacy") {
+		$('#privacy-policy').foundation('reveal', 'open')
+	}
 }
