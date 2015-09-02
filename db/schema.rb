@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(version: 20150902192606) do
     t.string  "start_time"
   end
 
+  create_table "settings", force: :cascade do |t|
+    t.string  "location"
+    t.integer "user_id"
+    t.string  "custom_location"
+    t.string  "transportation"
+  end
+
   create_table "users", force: :cascade do |t|
     t.integer  "fb_id",        limit: 8
     t.string   "fb_name"
