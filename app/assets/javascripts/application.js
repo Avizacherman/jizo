@@ -12,8 +12,9 @@
 //
 //= require vendor/jquery
 //= require vendor/modernizr
-//= require moment/moment
-//= require_tree ../../../vendor/assets/javascripts/moment
+//= require moment/moment-with-locales
+//= require moment/moment-timezone
+//= require jstz
 //= require jquery_ujs
 //= require turbolinks
 //= require foundation.min
