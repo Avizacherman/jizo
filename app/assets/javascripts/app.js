@@ -101,22 +101,21 @@ function initialize() {
 			}).done(function () {
 				giveDirections(directions.responseJSON.directions)
 				heightMagic();
-				$saveButton = $('<button>')
-				$saveButton.text('Save')
+				$saveButton = $('<button class="tiny facebook right">')
+				$saveButton.text('Save Directions')
 				$saveButton.on('click', function () {
 					$.post('/save_directions', {
 						origin: yourLat + "," + yourLng,
 						destination: lat + "," + lng,
 						directions_data: $('#event-directions-display').html()
 					})
+					$saveButton.addClass("hide");
 				})
-				$eventContainer = $("#event-directions-display")
-				$eventContainer.append($saveButton)
-
+				$saveContainer = $(".panel.start")
+				$saveContainer.append($saveButton)
 			})
 		})
 	})
-
 
 	//FORMAT DATE AND TIMES
 	$(".start-date-value").each(function () {
@@ -125,23 +124,40 @@ function initialize() {
 		$(this).text(formatedValue)
 	})
 
-	$(".start-time-value").each(function(){
+	$(".start-time-value").each(function () {
 		initialValue = $(this).text()
 		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('ha z')
 		$(this).text(formatedValue)
 
 	})
 
-	$(".end-time-value").each(function(){
+	$(".end-time-value").each(function () {
 		initialValue = $(this).text()
 		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('ha z')
 		$(this).text(formatedValue)
 
 	})
 
+	//SHIFT OMITTED RESULTS TO TOP
+	$eventListAccordion = $("ul.accordion.height-magic");
+	$omittedAlert = $(".alert-box.omitted");
+	$($eventListAccordion).prepend($omittedAlert);
+
+	//COUNT WORDS IN DESCRIPTION
+	$('.description').each(function (i) {
+		var iTotalWords = $(this).text().split(' ').length;
+		if (iTotalWords > 100) {
+			var showMore = $(this).parent().append('<p class="show-more"><a href="#"><b>' + iTotalWords + ' words </b></a></p>');
+			$('.show-more').on("click", function () {
+				$('.show-more').closest('.description').css({
+					'max-height': '100%'
+				})
+			}
+		)}
+	});
 
 	//AUTOLOAD PRIVACY MODAL
-	if(window.location.hash === "#privacy") {
+	if (window.location.hash === "#privacy") {
 		$('#privacy-policy').foundation('reveal', 'open')
 	}
 
@@ -217,7 +233,7 @@ function giveDirections(obj) {
 		$div = $('<div class="panel">').attr("id", "step-" + stepNo).html("Go " + o.distance.text + " " + o.html_instructions + " approximately " + o.duration.text)
 		$eventContainer.append($div)
 	})
-	$($eventContainer).prepend($("<div class='panel start'><strong>Starting Trip.</strong></div>"));
+	$($eventContainer).prepend($("<div class='panel start clearfix'><strong>Starting Trip.</strong></div>"));
 	$($eventContainer).append($("<div class='panel end'><strong>You have reached your desination.</strong></div>"));
 }
 
@@ -241,7 +257,16 @@ window.fbAsyncInit = function () {
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
+//SETTINGS
 
+	$('#submitSettings').click(function(e) {
+	e.preventDefault()
 
+	var params = {transportation: $("input[name=transportaion]:checked").val(), location: $("input[name=location]:checked").val()};
+	if ($("input[name=location]:checked").val() == "enter_location"){
+		params["customLocation"] = $("#cutom_location").val();
+	}
+	
+	$.post("/settings", params);
 
-
+})

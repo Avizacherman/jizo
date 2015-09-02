@@ -18,9 +18,13 @@
 						<% else %>
 							<% counter +=1 %>
 						<% end %>
-					
 					<% end %>
-				<div class="panel">	<%= counter %> events did not have location data and were left out </div>
+					<% if counter != 0 %>
+						<div data-alert class="alert-box omitted">
+							<strong><%= counter %> events did not have location data and were omitted.</strong>
+							<a href="#" class="close">&#215;</a>
+						</div>
+					<% end %>
 				</ul>
 			</div>
 		</div>
