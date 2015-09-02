@@ -3,8 +3,8 @@ $(document).on('page:load', initialize);
 
 function initialize() {
 
-	//	var yourLat;
-	//	var yourLng;
+	var yourLat;
+	var yourLng;
 	var bKey = 'AIzaSyDXo_-3dpRQz_yvYHP6yEaYUA1_vYlxglM';
 
 	//GET LOCATION
@@ -100,30 +100,35 @@ function initialize() {
 				destination: lat + "," + lng
 			}).done(function () {
 				giveDirections(directions.responseJSON.directions)
+				heightMagic();
 				$saveButton = $('<button>')
 				$saveButton.text('Save')
-				$saveButton.on('click', function(){
+				$saveButton.on('click', function () {
 					$.post('/save_directions', {
 						origin: yourLat + "," + yourLng,
 						destination: lat + "," + lng,
 						directions_data: $('#event-directions-display').html()
-					 })
+					})
 				})
 				$eventContainer = $("#event-directions-display")
 				$eventContainer.append($saveButton)
-	
-				})
+
 			})
 		})
-	
+	})
 
-//FORMAT DATE AND TIMES
+
+	//FORMAT DATE AND TIMES
 	$(".start-date-value").each(function () {
 		initialValue = $(this).text()
 		formatedValue = moment(initialValue).format('LL')
 		$(this).text(formatedValue)
 	})
+	autoLoadPrivacy()
+
 }
+//END OF INITIALIZE
+
 
 //EVENT LIST FULL HEIGHT - HEIGHT MAGIC
 function heightMagic() {
@@ -134,16 +139,20 @@ function heightMagic() {
 		var content = $('.height-magic');
 		var header = $('header')
 		var header_height = $(header).outerHeight(true);
+
+		var h2 = $("#events-body-content h2")
+		var h2_height = $(h2).outerHeight(true);
+
 		content.css({
 			'display': 'none'
 		});
 		var wrapper = $(content).closest('#events-body-content');
 		var wrapper_height = $(wrapper).outerHeight(true);
-		var height = (wrapper_height - header_height - 60);
+		var height = (wrapper_height - header_height - h2_height) - 15;
 		content.css({
 			'height': height + 'px',
 			'display': 'block',
-			'overflow-y': 'scroll'
+			'overflow-y': 'auto'
 		});
 	};
 	resizeFunc();
@@ -175,9 +184,9 @@ function giveDirections(obj) {
 		var stepNo = index + 1;
 		$div = $('<div class="panel">').attr("id", "step-" + stepNo).html("Go " + o.distance.text + " " + o.html_instructions + " approximately " + o.duration.text)
 		$eventContainer.append($div)
-			})
-
-
+	})
+	$($eventContainer).prepend($("<div class='panel start'><strong>Starting Trip.</strong></div>"));
+	$($eventContainer).append($("<div class='panel end'><strong>You have reached your desination.</strong></div>"));
 }
 
 //FACEBOOK
@@ -199,3 +208,10 @@ window.fbAsyncInit = function () {
 	js.src = "//connect.facebook.net/en_US/sdk.js";
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+//MODAL AUTOLOADS
+function autoLoadPrivacy(){
+	if(window.location.hash === "#privacy") {
+		$('#privacy-policy').foundation('reveal', 'open')
+	}
+}

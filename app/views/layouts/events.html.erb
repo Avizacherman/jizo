@@ -13,8 +13,10 @@
 </head>
 <body>
 	<%= yield %>
+	<%= render "layouts/settings_modal" %>
 <script>
 	$(document).foundation();
 </script>
+	<%= render "shared/privacy_policy" %>
 </body>
 </html>
