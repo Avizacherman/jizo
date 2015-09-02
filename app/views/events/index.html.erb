@@ -7,18 +7,20 @@
 		<div id="events-list-wrapper" class="small-12 medium-6 medium-push-6 columns">
 			<div id="events-list-content" class="">
 				<h2>Events List</h2>
+				<% counter = 0 %>
 				<ul class="accordion height-magic" data-accordion>
 					<% @events.each do |event| %>
-					<li class="accordion-navigation">
 						<% if event['place'] && event['place']['location']%>
+						<li class="accordion-navigation">
 						<a class="hasLocation" lat="<%=event['place']['location']['latitude']%>" lng="<%=event['place']['location']['longitude']%>" href="#panel<%=event['id']%>a"> <%=event['name']%></a>
 						<%= render partial: "event_info", locals: {event: event} %>
+						</li>
 						<% else %>
-							<a href="#panel<%=event['id']%>a"> <%=event['name']%></a>
-							<%= render partial: "event_info", locals: {event: event} %>
+							<% counter +=1 %>
 						<% end %>
-					</li>
+					
 					<% end %>
+				<div class="panel">	<%= counter %> events did not have location data and were left out </div>
 				</ul>
 			</div>
 		</div>
