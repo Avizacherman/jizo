@@ -17,4 +17,4 @@
 //= require turbolinks
 //= require foundation.min
 //= require app
-// require_tree .
+//= require_tree .
