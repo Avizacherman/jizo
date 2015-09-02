@@ -18,6 +18,7 @@ FACEBOOK COLORS
 
 FOUNDATION UI COLORS
 	333333 Dark Dark Grey
+	3F3F3F Dark Dark Grey - Slightly Lighter
 */
 
 
@@ -60,8 +61,6 @@ a:active {
 }
 header {
 	border: 1px solid #E6D4A7;
-	border-bottom: 0;
-	/*	border-bottom: 1px solid #E6D4A7;*/
 }
 header a h1 {
 	text-decoration: none;
@@ -88,7 +87,8 @@ header h1 img {
 	padding: 15px 0 15px 0;
 	color: #ECF0F1;
 	background: #825534;
-	background-image: url(http://www.transparenttextures.com/patterns/diamond-upholstery.png);
+	/*	background-image: url(http://www.transparenttextures.com/patterns/diamond-upholstery.png);*/
+	background-image: url(diamond-upholstery.png);
 	position: relative;
 }
 #hero-body-content {
@@ -124,6 +124,10 @@ header h1 img {
 	color: #333333;
 	text-shadow: -1px -1px 0 #E6D4A7, 1px -1px 0 #E6D4A7, -1px 1px 0 #E6D4A7, 1px 1px 0 #E6D4A7;
 }
+#hero-body-content i.fa-align-justify {
+	color: #333333;
+	text-shadow: -1px -1px 0 #E6D4A7, 1px -1px 0 #E6D4A7, -1px 1px 0 #E6D4A7, 1px 1px 0 #E6D4A7;
+}
 #hero-body-content i.fa-location-arrow {
 	/*	color: #6d84b4;*/
 	color: #333333;
@@ -135,6 +139,7 @@ header h1 img {
 #hero-top {
 	padding: 15px;
 	background: #333333;
+	background-image: url(black-orchid.png);
 	border: 1px solid #E6D4A7;
 	border-bottom: 0;
 }
@@ -142,6 +147,7 @@ header h1 img {
 	padding: 15px;
 	background: #333333;
 	border: 1px solid #E6D4A7;
+	background-image: url(black-orchid.png);
 	border-top: 0;
 }
 
@@ -154,13 +160,16 @@ header h1 img {
 	min-height: 100%;
 	padding: 15px;
 	background: #825534;
-	background-image: url(http://www.transparenttextures.com/patterns/diamond-upholstery.png);
+	/*	background-image: url(http://www.transparenttextures.com/patterns/diamond-upholstery.png);*/
+	background-image: url(diamond-upholstery.png);
 	position: relative;
 }
 #events-body-content {
 	padding: 15px 0 15px 0;
 	background: #333333;
+/*	background-image: url(black-orchid.png);*/
 	border: 1px solid #E6D4A7;
+	border-top:0;
 	color: #ecf0f1;
 }
 #events-body-content.row {
@@ -187,7 +196,6 @@ header h1 img {
 #events-list-content .accordion dd {
 	border: 1px solid #E6D4A7;
 	border-bottom: 0;
-	border-right: 0;
 }
 #events-list-content .accordion .accordion-navigation:first-child,
 #events-list-content .accordion dd:last-child {
@@ -200,6 +208,7 @@ header h1 img {
 #events-list-content .accordion .accordion-navigation > a,
 #events-list-content .accordion dd > a {
 	background: #825534;
+/*	background-image: url(black-orchid.png);*/
 	color: #ecf0f1;
 	text-decoration: none;
 }
@@ -253,20 +262,41 @@ header h1 img {
 }
 #event-directions-display {
 	border: 1px solid #E6D4A7;
-	min-height: 375px;
+	/*	min-height: 375px;*/
 	max-height: 375px;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 #event-directions-display .panel {
 	margin-bottom: 0;
-	background: #825534;
 	color: #ecf0f1;
-	border: 0;
-	border-bottom: 1px solid #E6D4A7;
+	border: 1px solid #E6D4A7;
+	border-left: 0;
+	border-top: 0;
 	text-decoration: none;
 }
+#event-directions-display .panel:nth-child(odd) {
+	background: #303030;
+}
+#event-directions-display .panel:nth-child(even) {
+	background: #3F3F3F;
+}
 #event-directions-display .panel:last-child {
-	border-bottom: none;
+	border-bottom: 0;
+}
+#event-directions-display .panel:hover {
+	background: #ecf0f1;
+	color: #333333;	
+}
+#event-directions-display .panel.start {
+	background: #43AC6A;
+	color: #ecf0f1 !important;	
+}
+#event-directions-display .panel.end {
+	background: #f04124;
+	color: #ecf0f1 !important;
+}
+#event-directions-empty {
+	text-align: center;
 }
 
 /*END EVENTS PAGE*/
@@ -324,16 +354,17 @@ ul {
 ::-webkit-scrollbar {
 	width: 12px;
 	background-color: rgba(0, 0, 0, 0);
-	-webkit-border-radius: 100px;
+	border: 1px solid #E6D4A7;
+	/*	-webkit-border-radius: 100px;*/
 }
 ::-webkit-scrollbar:hover {
 	background-color: rgba(0, 0, 0, 0.09);
 }
 ::-webkit-scrollbar-thumb:vertical {
-	background: rgba(0, 0, 0, 0.5);
-	-webkit-border-radius: 100px;
+	background: #E6D4A7;
+	/*	-webkit-border-radius: 100px;*/
 	background-clip: padding-box;
-	border: 2px solid rgba(0, 0, 0, 0);
+	border: 1px solid #E6D4A7;
 	min-height: 10px;
 }
 ::-webkit-scrollbar-thumb:vertical:active {

@@ -1,0 +1,39 @@
+<div id="settingsModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+	<div class="row">
+		<h2 id="modalTitle">Settings</h2>
+		<p class="lead">Please select your settings to proceed.</p>
+		<div class="small-12 columns">
+			<label>Choose Your Mode of Transport</label>
+			<input type="radio" name="transportation" value="walk" id="walk"><label>Walk</label>
+			<input type="radio" name="transportation" value="drive" id="drive"><label>Drive</label>
+			<input type="radio" name="transportation" value="bike" id="bike"><label>Bike</label>
+			<input type="radio" name="transportation" value="transit" id="transit"><label>Mass Transit</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="small-12 columns">
+			<label>Choose Your Location</label>
+			<input type="radio" name="location" value="current_location" id="current_location"><label>Current Location</label>
+			<input type="radio" name="location" value="facebook_location" id="facebook_location"><label>Facebook Location</label>
+			<input type="radio" name="location" value="enter_location" id="enter_location"><label>Enter Your location</label>
+		</div>
+		<div class="row">
+			<div class="small-12 columns">
+				<label class="text hide">Enter Your Location
+					<input type="text" class="text hide" placeholder="Enter Your Location"/>
+				</label>
+			</div>
+			<div class="small-12 columns">
+				<button>Submit</button>
+			</div>
+		</div>
+		<a class="close-reveal-modal" aria-label="Close">&#215;</a>
+	</div>
+	<script>
+		$("#facebook_location, #current_location").click(function(){
+			$(".text").addClass("hide");
+		})
+		$("#enter_location").click(function(){
+			$(".text").removeClass("hide");
+		})
+	</script>
