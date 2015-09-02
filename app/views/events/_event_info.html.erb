@@ -5,23 +5,18 @@
 			<li><a href="#event-directions-wrapper">Go To Directions</a></li>
 		</ul>
 	</div>
+
 	<div class="description"> 
 		<p><span>Date of the Event:</span> <span class="start-date-value"><%= event['start_time'] %></span></p>
-		<p><span>Description:</span> <%= event['description'] %></p>
-	</div>
 	<div class="start-time">
 		<p><span>Start Time:</span> <span class="start-time-value"> <%= event['start_time'] %></span></p>
 	</div>
+	<% if event['end_time'] %>
 	<div class="end-time">
-		<p><span>End Time:</span> 2012-12-02T18:00:00+0100</p>
+		<p><span>End Time:</span> <span class="end-time-value"><%= event['end_time'] %></span></p>
 	</div>
-	<div class="attending">
-		<p><span>Attending:</span> 8142</p>
+	<% end %>
+		<p><span>Description:</span> <%= event['description'] %></p>
 	</div>
-	<div class="maybe">
-		<p><span>Maybe:</span> 1180</p>
-	</div>
-	<div class="no-reply">
-		<p><span>No-reply:</span> 16197</p>
-	</div>
+
 </div>

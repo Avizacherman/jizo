@@ -132,13 +132,33 @@ function initialize() {
 
 	})
 
+	$(".end-time-value").each(function(){
+		initialValue = $(this).text()
+		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('ha z')
+		$(this).text(formatedValue)
+
+	})
+
 
 	//AUTOLOAD PRIVACY MODAL
 	if(window.location.hash === "#privacy") {
 		$('#privacy-policy').foundation('reveal', 'open')
 	}
 
+//SETTINGS
 
+	$('#submitSettings').click(function() {	
+	var params = {transportation: $("input[name=transportation]:checked").val(), location: $("input[name=location]:checked").val()};
+	if ($("input[name=location]:checked").val() == "enter_location"){
+		params["customLocation"] = $("#custom_location").val();
+	}
+	$.post("/settings", params).done(function(){
+		$('#settingsModal').foundation('reveal', 'close')
+	});
+})
+
+
+}
 //END OF INITIALIZE
 
 
@@ -220,5 +240,8 @@ window.fbAsyncInit = function () {
 	js.src = "//connect.facebook.net/en_US/sdk.js";
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+
+
 
 
