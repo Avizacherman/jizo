@@ -15,7 +15,7 @@
 						<%= render partial: "event_info", locals: {event: event} %>
 						<% else %>
 							<a href="#panel<%=event['id']%>a"> <%=event['name']%></a>
-										<%= render partial: "event_info", locals: {event: event} %>
+							<%= render partial: "event_info", locals: {event: event} %>
 						<% end %>
 					</li>
 					<% end %>
@@ -35,7 +35,9 @@
 					<div id="event-directions-content">
 						<h2>Directions</h2>
 						<div id="event-directions-display">
-							<h3>Please click on an event</h3>
+							<div id="event-directions-empty">
+								<h3>Please click on an event</h3>
+							</div>
 						</div>
 					</div>
 				</div>

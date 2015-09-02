@@ -1,13 +1,13 @@
 <div id="hero-body-wrapper">
 	<div id="hero-body-content">
-		<div class="vertical-magic">
+		<div id="hero-body-display" class="vertical-magic">
 			<div id="hero-top" class="row">
 				<div class="small-12 medium-4 columns">
 					<img src="<%= asset_path 'hero-logo.png' %>"/>
 				</div>
 				<div class="small-12 medium-8 columns">
 					<h1>Jizo!</h1>
-					<p><a href="https://en.wikipedia.org/wiki/Ksitigarbha" target="_blank">Jizo</a> (pronounced Jizō) is protective deity of travelers.</p>
+					<p><a href="https://en.wikipedia.org/wiki/Ksitigarbha" target="_blank">Jizo</a> (pronounced like Cheese-o)<br/>is a protective deity of travelers.</p>
 					<p>Jizo is also a place where you can easily get and save directions to your facebook events!</p>
 					<p>Give it a try!</p>
 					<%= link_to 'Login to Facebook', 'auth/facebook', :class => "popup button", :"data-width" => 600, :"data-height" => 400 %>			
@@ -20,7 +20,7 @@
 				</div>
 				<div class="small-12 medium-4 columns">
 					<h2>Chose your event</h2>
-					<i class="fa fa-list"></i>
+					<i class="fa fa-align-justify"></i>
 				</div>
 				<div class="small-12 medium-4 columns">
 					<h2>Get your directions</h2>
