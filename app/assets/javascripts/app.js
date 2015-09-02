@@ -1,7 +1,11 @@
 $(document).ready(initialize);
 $(document).on('page:load', initialize);
 
+
 function initialize() {
+	//Load and apply settings if they exist, otherwise ask user to set them
+	
+set = utilize_settings()
 
 	var yourLat;
 	var yourLng;
@@ -9,9 +13,32 @@ function initialize() {
 
 	//GET LOCATION
 	navigator.geolocation.getCurrentPosition(function (pos) {
+		
 		yourLat = pos.coords.latitude;
 		yourLng = pos.coords.longitude;
+		
 		if (yourLng) {
+			
+			 if (set.location === 'enter_location'){
+				coords = set.geocoded_location.split(', ')
+				yourLat = parseFloat(coords[0])
+				yourLng = parseFloat(coords[1])
+			}
+
+			switch (set.transportation){
+				case 'bicycling':
+					travelMode = google.maps.TravelMode.BICYCLING;
+					break;
+				case 'driving':
+					travelMode = google.maps.TravelMode.DRIVING;
+					break;
+				case 'transit':
+					travelMode = google.maps.TravelMode.TRANSIT
+					break;
+				case 'walking':
+					travelMode = google.maps.TravelMode.WALKING
+			}
+
 			clearInterval(progressBar);
 			$(".meter").css({
 				"width": "100%"
@@ -169,24 +196,11 @@ function initialize() {
 		params["customLocation"] = $("#custom_location").val();
 	}
 	$.post("/settings", params).done(function(){
+			initialize()
+
 		$('#settingsModal').foundation('reveal', 'close')
 	});
 })
-
-	settings = $.get('/settings/load').done(function(){
-		if(settings.responseJSON.settings[0]) {
-		set = settings.responseJSON.settings[0] 
-		console.log(set)
-		$('input[value=' + set.transportation+ ']').attr('checked', 'true')
-		$('input[value=' + set.location+ ']').attr('checked', 'true')
-		if (set.location === 'enter_location'){
-					$(".text").removeClass("hide");
-					$('.text').val(set.custom_location)
-		}
-
-		}
-	})
-
 
 
 }
@@ -225,11 +239,13 @@ function heightMagic() {
 }
 
 //GOOGLE MAPS GET AND DISPLAY ROUTE
+
+
 function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination) {
 	directionsService.route({
 		origin: origin,
 		destination: destination,
-		travelMode: google.maps.TravelMode.DRIVING
+		travelMode: travelMode
 	}, function (response, status) {
 		if (status === google.maps.DirectionsStatus.OK) {
 			directionsDisplay.setDirections(response);
@@ -273,15 +289,22 @@ window.fbAsyncInit = function () {
 }(document, 'script', 'facebook-jssdk'));
 
 //SETTINGS
+function utilize_settings(){
+		settings = $.get('/settings/load').done(function(){
+		if(settings.responseJSON.settings[0]) {
+		set = settings.responseJSON.settings[0] 
+		console.log(set)
+		$('input[value=' + set.transportation+ ']').attr('checked', 'true')
+		$('input[value=' + set.location+ ']').attr('checked', 'true')
+		if (set.location === 'enter_location'){
+					$(".text").removeClass("hide");
+					$('.text').val(set.custom_location)
+		}
+		
+		return set
 
-	$('#submitSettings').click(function(e) {
-	e.preventDefault()
 
-	var params = {transportation: $("input[name=transportaion]:checked").val(), location: $("input[name=location]:checked").val()};
-	if ($("input[name=location]:checked").val() == "enter_location"){
-		params["customLocation"] = $("#cutom_location").val();
-	}
-	
-	$.post("/settings", params);
-
-})
+		} else {
+			$('#settingsModal').foundation('reveal', 'open')
+		}
+})}
