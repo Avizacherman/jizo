@@ -29,7 +29,7 @@ function verticalMagic() {
 }
 
 
-//MODAL AUTOLOADS
+//MODAL AUTOLOADer
 function autoLoadPrivacy(){
 	if(window.location.hash === "#privacy") {
 		$('#privacy-policy').foundation('reveal', 'open')

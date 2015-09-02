@@ -209,7 +209,7 @@ window.fbAsyncInit = function () {
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-//MODAL AUTOLOADS
+//MODAL AUTOLOADer
 function autoLoadPrivacy(){
 	if(window.location.hash === "#privacy") {
 		$('#privacy-policy').foundation('reveal', 'open')
