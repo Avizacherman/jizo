@@ -74,8 +74,8 @@ header h1 img {
 .top-bar-section ul li > a.button.facebook {
 	background-color: #3b5998;
 }
-.top-bar-section ul li > a.button:hover,
-.top-bar-section ul li > a.button:focus {
+.top-bar-section ul li > a.button.facebook:hover,
+.top-bar-section ul li > a.button.facebook:focus {
 	background-color: #0e1f5b;
 }
 
@@ -188,6 +188,24 @@ header h1 img {
 #events-list-content .accordion {
 	border: 1px solid #E6D4A7;
 	border-left: 0;
+}
+#events-list-content .accordion .alert-box.omitted {
+	background: #333333;
+	border-left: 1px solid #E6D4A7;
+	border-right: 1px solid #E6D4A7;
+	border-top: 0;
+	border-bottom: 0;
+	margin: 0;
+	color: #ecf0f1;
+}
+#events-list-content .accordion .alert-box.omitted .close {
+	color: #ecf0f1;
+	opacity: .5;
+	text-decoration: none;
+}
+#events-list-content .accordion .alert-box.omitted .close:hover,
+#events-list-content .accordion .alert-box.omitted .close:focus {
+	opacity: 1;
 }
 #events-list-content .accordion .accordion-navigation,
 #events-list-content .accordion dd {
@@ -316,14 +334,28 @@ button,
 .button {
 	text-decoration: none !important;
 }
+button.hollow,
 .button.hollow {
 	border-width: 2px;
 	border-color: #ecf0f1;
 	background: none;
 }
-.button.hollow:hover {
+button.hollow:hover,
+button.hollow:focus,
+.button.hollow:hover,
+.button.hollow:focus {
 	border-color: #E6D4A7;
 	color: #E6D4A7;
+}
+button.facebook,
+.button.facebook {
+	background-color: #3b5998;
+}
+button.facebook:hover,
+button.facebook:focus,
+.button.facebook:hover,
+.button.facebook:focus {
+	background-color: #0e1f5b;
 }
 ul {
 	margin-left: 0;

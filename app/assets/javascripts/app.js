@@ -101,7 +101,7 @@ function initialize() {
 			}).done(function () {
 				giveDirections(directions.responseJSON.directions)
 				heightMagic();
-				$saveButton = $('<button class="tiny success right">')
+				$saveButton = $('<button class="tiny facebook right">')
 				$saveButton.text('Save Directions')
 				$saveButton.on('click', function () {
 					$.post('/save_directions', {
@@ -124,23 +124,35 @@ function initialize() {
 		$(this).text(formatedValue)
 	})
 
-	$(".start-time-value").each(function(){
+	$(".start-time-value").each(function () {
 		initialValue = $(this).text()
 		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('ha z')
 		$(this).text(formatedValue)
 
 	})
 
-	$(".end-time-value").each(function(){
+	$(".end-time-value").each(function () {
 		initialValue = $(this).text()
 		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('ha z')
 		$(this).text(formatedValue)
 
 	})
+
+	//SHIFT OMITTED RESULTS TO TOP
+	$eventListAccordion = $("ul.accordion.height-magic");
+	$omittedAlert = $(".alert-box.omitted");
+	$($eventListAccordion).prepend($omittedAlert);
+
+
+	//	DELETE OMITTED PANEL AFTER SET TIMEOUT	
+	//	var deleteOmittedPanel = setTimeout(function(){
+	//		$omittedPanel.addClass("hide");
+	//		clearTimeout(deleteOmittedPanel);
+	//	}, 7000);
 
 
 	//AUTOLOAD PRIVACY MODAL
-	if(window.location.hash === "#privacy") {
+	if (window.location.hash === "#privacy") {
 		$('#privacy-policy').foundation('reveal', 'open')
 	}
 
@@ -226,5 +238,3 @@ window.fbAsyncInit = function () {
 	js.src = "//connect.facebook.net/en_US/sdk.js";
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-
-
