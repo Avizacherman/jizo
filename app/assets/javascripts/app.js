@@ -121,12 +121,24 @@ function initialize() {
 	//FORMAT DATE AND TIMES
 	$(".start-date-value").each(function () {
 		initialValue = $(this).text()
-		formatedValue = moment(initialValue).format('LL')
+		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('LL')
 		$(this).text(formatedValue)
 	})
-	autoLoadPrivacy()
 
-}
+
+	$(".start-time-value").each(function(){
+		initialValue = $(this).text()
+		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('ha z')
+		$(this).text(formatedValue)
+
+	})
+
+
+	//AUTOLOAD PRIVACY MODAL
+	if(window.location.hash === "#privacy") {
+		$('#privacy-policy').foundation('reveal', 'open')
+	}
+
 //END OF INITIALIZE
 
 
