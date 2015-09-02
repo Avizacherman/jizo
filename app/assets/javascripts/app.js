@@ -132,13 +132,20 @@ function initialize() {
 
 	})
 
+	$(".end-time-value").each(function(){
+		initialValue = $(this).text()
+		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('ha z')
+		$(this).text(formatedValue)
+
+	})
+
 
 	//AUTOLOAD PRIVACY MODAL
 	if(window.location.hash === "#privacy") {
 		$('#privacy-policy').foundation('reveal', 'open')
 	}
 
-
+}
 //END OF INITIALIZE
 
 
