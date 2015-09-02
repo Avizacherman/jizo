@@ -145,6 +145,19 @@ function initialize() {
 		$('#privacy-policy').foundation('reveal', 'open')
 	}
 
+//SETTINGS
+
+	$('#submitSettings').click(function() {	
+	var params = {transportation: $("input[name=transportation]:checked").val(), location: $("input[name=location]:checked").val()};
+	if ($("input[name=location]:checked").val() == "enter_location"){
+		params["customLocation"] = $("#custom_location").val();
+	}
+	$.post("/settings", params).done(function(){
+		$('#settingsModal').foundation('reveal', 'close')
+	});
+})
+
+
 }
 //END OF INITIALIZE
 
@@ -230,18 +243,5 @@ window.fbAsyncInit = function () {
 
 
 
-//SETTINGS
-
-	$('#submitSettings').click(function(e) {
-	e.preventDefault()
-
-	var params = {transportation: $("input[name=transportaion]:checked").val(), location: $("input[name=location]:checked").val()};
-	if ($("input[name=location]:checked").val() == "enter_location"){
-		params["customLocation"] = $("#cutom_location").val();
-	}
-	
-	$.post("/settings", params);
-
-})
 
 
