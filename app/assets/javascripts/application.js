@@ -12,12 +12,10 @@
 //
 //= require vendor/jquery
 //= require vendor/modernizr
+//= require moment/moment
 //= require_tree ../../../vendor/assets/javascripts/moment
 //= require jquery_ujs
 //= require turbolinks
 //= require foundation.min
 //= require app
 // require_tree .
-$(function(){
-	document.foundation()
-})
