@@ -143,13 +143,18 @@ function initialize() {
 	$omittedAlert = $(".alert-box.omitted");
 	$($eventListAccordion).prepend($omittedAlert);
 
-
-	//	DELETE OMITTED PANEL AFTER SET TIMEOUT	
-	//	var deleteOmittedPanel = setTimeout(function(){
-	//		$omittedPanel.addClass("hide");
-	//		clearTimeout(deleteOmittedPanel);
-	//	}, 7000);
-
+	//COUNT WORDS IN DESCRIPTION
+	$('.description').each(function (i) {
+		var iTotalWords = $(this).text().split(' ').length;
+		if (iTotalWords > 100) {
+			var showMore = $(this).parent().append('<p class="show-more"><a href="#"><b>' + iTotalWords + ' words </b></a></p>');
+			$('.show-more').on("click", function () {
+				$('.show-more').closest('.description').css({
+					'max-height': '100%'
+				})
+			}
+		)}
+	});
 
 	//AUTOLOAD PRIVACY MODAL
 	if (window.location.hash === "#privacy") {
