@@ -174,7 +174,7 @@ function initialize() {
 })
 
 	settings = $.get('/settings/load').done(function(){
-		if(settings) {
+		if(settings.responseJSON.settings[0]) {
 		set = settings.responseJSON.settings[0] 
 		console.log(set)
 		$('input[value=' + set.transportation+ ']').attr('checked', 'true')
