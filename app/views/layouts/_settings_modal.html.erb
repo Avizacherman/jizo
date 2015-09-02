@@ -3,6 +3,7 @@
 		<h2 id="modalTitle">Settings</h2>
 		<p class="lead">Please select your settings to proceed.</p>
 		<div class="small-12 columns">
+			<form method="POST" action="/settings">
 			<label>Choose Your Mode of Transport</label>
 			<input type="radio" name="transportation" value="walking" id="walk"><label>Walk</label>
 			<input type="radio" name="transportation" value="driving" id="drive"><label>Drive</label>
@@ -20,11 +21,13 @@
 		<div class="row">
 			<div class="small-12 columns">
 				<label class="text hide">Enter Your Location
-					<input type="text" class="text hide" placeholder="Enter Your Location"/>
+					<input type="text" id="custom_location" class="text hide" placeholder="Enter Your Location"/>
 				</label>
 			</div>
 			<div class="small-12 columns">
-				<button>Submit</button>
+				</form>
+			<button id="submitSettings" >Submit</button>
+
 			</div>
 		</div>
 		<a class="close-reveal-modal" aria-label="Close">&#215;</a>
