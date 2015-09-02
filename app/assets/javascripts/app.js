@@ -101,11 +101,24 @@ function initialize() {
 			}).done(function () {
 				giveDirections(directions.responseJSON.directions)
 				heightMagic();
+				$saveButton = $('<button>')
+				$saveButton.text('Save')
+				$saveButton.on('click', function () {
+					$.post('/save_directions', {
+						origin: yourLat + "," + yourLng,
+						destination: lat + "," + lng,
+						directions_data: $('#event-directions-display').html()
+					})
+				})
+				$eventContainer = $("#event-directions-display")
+				$eventContainer.append($saveButton)
+
 			})
 		})
 	})
 
-//FORMAT DATE AND TIMES
+
+	//FORMAT DATE AND TIMES
 	$(".start-date-value").each(function () {
 		initialValue = $(this).text()
 		formatedValue = moment(initialValue).format('LL')
@@ -122,10 +135,10 @@ function heightMagic() {
 		var content = $('.height-magic');
 		var header = $('header')
 		var header_height = $(header).outerHeight(true);
-		
+
 		var h2 = $("#events-body-content h2")
 		var h2_height = $(h2).outerHeight(true);
-		
+
 		content.css({
 			'display': 'none'
 		});
@@ -168,8 +181,8 @@ function giveDirections(obj) {
 		$div = $('<div class="panel">').attr("id", "step-" + stepNo).html("Go " + o.distance.text + " " + o.html_instructions + " approximately " + o.duration.text)
 		$eventContainer.append($div)
 	})
-	$($eventContainer).prepend( $( "<div class='panel start'><strong>Starting Trip.</strong></div>" ) );
-	$($eventContainer).append( $( "<div class='panel end'><strong>You have reached your desination.</strong></div>" ) );
+	$($eventContainer).prepend($("<div class='panel start'><strong>Starting Trip.</strong></div>"));
+	$($eventContainer).append($("<div class='panel end'><strong>You have reached your desination.</strong></div>"));
 }
 
 //FACEBOOK
