@@ -87,8 +87,7 @@ header h1 img {
 	padding: 15px 0 15px 0;
 	color: #ECF0F1;
 	background: #825534;
-	/*	background-image: url(http://www.transparenttextures.com/patterns/diamond-upholstery.png);*/
-	background-image: url(diamond-upholstery.png);
+	background-image: url(<%= asset_path 'diamond-upholstery.png' %>);
 	position: relative;
 }
 #hero-body-content {
@@ -139,7 +138,7 @@ header h1 img {
 #hero-top {
 	padding: 15px;
 	background: #333333;
-	background-image: url(black-orchid.png);
+	background-image: url(<%= asset_path 'black-orchid.png' %>);
 	border: 1px solid #E6D4A7;
 	border-bottom: 0;
 }
@@ -147,7 +146,7 @@ header h1 img {
 	padding: 15px;
 	background: #333333;
 	border: 1px solid #E6D4A7;
-	background-image: url(black-orchid.png);
+	background-image: url(<%= asset_path 'black-orchid.png' %>);
 	border-top: 0;
 }
 
@@ -160,16 +159,14 @@ header h1 img {
 	min-height: 100%;
 	padding: 15px;
 	background: #825534;
-	/*	background-image: url(http://www.transparenttextures.com/patterns/diamond-upholstery.png);*/
-	background-image: url(diamond-upholstery.png);
+	background-image: url(<%= asset_path 'diamond-upholstery.png' %>);
 	position: relative;
 }
 #events-body-content {
 	padding: 15px 0 15px 0;
 	background: #333333;
-/*	background-image: url(black-orchid.png);*/
 	border: 1px solid #E6D4A7;
-	border-top:0;
+	border-top: 0;
 	color: #ecf0f1;
 }
 #events-body-content.row {
@@ -208,7 +205,6 @@ header h1 img {
 #events-list-content .accordion .accordion-navigation > a,
 #events-list-content .accordion dd > a {
 	background: #825534;
-/*	background-image: url(black-orchid.png);*/
 	color: #ecf0f1;
 	text-decoration: none;
 }
@@ -262,7 +258,6 @@ header h1 img {
 }
 #event-directions-display {
 	border: 1px solid #E6D4A7;
-	/*	min-height: 375px;*/
 	max-height: 375px;
 	overflow-y: auto;
 }
@@ -285,11 +280,11 @@ header h1 img {
 }
 #event-directions-display .panel:hover {
 	background: #ecf0f1;
-	color: #333333;	
+	color: #333333;
 }
 #event-directions-display .panel.start {
 	background: #43AC6A;
-	color: #ecf0f1 !important;	
+	color: #ecf0f1 !important;
 }
 #event-directions-display .panel.end {
 	background: #f04124;
@@ -301,7 +296,19 @@ header h1 img {
 
 /*END EVENTS PAGE*/
 
-footer {}
+
+/*BEGIN FOOTER*/
+
+footer {
+	font-size: .5em;
+	text-align: right;
+}
+footer p {
+	margin: 0;
+}
+
+/*END FOOTER*/
+
 
 /*BEGIN FOUNDATION OVERRIDES*/
 
@@ -333,6 +340,23 @@ ul {
 }
 .show-block {
 	display: block !important;
+}
+.reveal-modal {
+	max-height: 80%;
+	overflow-y: auto;
+	background: #333333;
+	color: #ecf0f1;
+}
+.reveal-modal h1,
+.reveal-modal h2,
+.reveal-modal h3,
+.reveal-modal h4,
+.reveal-modal h5,
+.reveal-modal h6 {
+	color: #e6d4a7;
+}
+.reveal-modal label {
+	color: #ecf0f1;
 }
 
 /*END FOUNDATION OVERRIDES*/

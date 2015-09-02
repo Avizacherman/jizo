@@ -3,8 +3,9 @@ $(document).on('page:load', initialize);
 
 function initialize() {
 	verticalMagic();
-	autoLoadPrivacy();
-}
+if(window.location.hash === "#privacy") {
+		$('#privacy-policy').foundation('reveal', 'open')
+	}}
 
 //HOMEPAGE CENTERING - VERTICAL MAGIC
 function verticalMagic() {
@@ -29,9 +30,4 @@ function verticalMagic() {
 }
 
 
-//MODAL AUTOLOADS
-function autoLoadPrivacy(){
-	if(window.location.hash === "#privacy") {
-		$('#privacy-policy').foundation('reveal', 'open')
-	}
-}
+//MODAL AUTOLOADer

@@ -125,7 +125,6 @@ function initialize() {
 		$(this).text(formatedValue)
 	})
 
-
 	$(".start-time-value").each(function(){
 		initialValue = $(this).text()
 		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('ha z')
@@ -138,6 +137,7 @@ function initialize() {
 	if(window.location.hash === "#privacy") {
 		$('#privacy-policy').foundation('reveal', 'open')
 	}
+
 
 //END OF INITIALIZE
 
@@ -221,9 +221,4 @@ window.fbAsyncInit = function () {
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-//MODAL AUTOLOADS
-function autoLoadPrivacy(){
-	if(window.location.hash === "#privacy") {
-		$('#privacy-policy').foundation('reveal', 'open')
-	}
-}
+

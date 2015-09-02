@@ -9,11 +9,8 @@ def set_session
 
 	# Associates access token with a user in the DB
    attach_user                                                                                                                                        
-	if URI(request.referer).path == '/' 
-		redirect_to '/events'
-	else
-		redirect_to URI(request.referer).path
-	end
+	redirect_to '/events'
+
 end
 
 # Alerts when there is a CSRF error
