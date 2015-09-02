@@ -19,11 +19,12 @@
 							<% counter +=1 %>
 						<% end %>
 					<% end %>
-<!--					<li class="panel omitted"><strong><%= counter %> events did not have location data and were omitted.</strong></li>-->
-					<div data-alert class="alert-box omitted">
-						<strong><%= counter %> events did not have location data and were omitted.</strong>
-						<a href="#" class="close">&#215;</a>
-					</div>
+					<% if counter != 0 %>
+						<div data-alert class="alert-box omitted">
+							<strong><%= counter %> events did not have location data and were omitted.</strong>
+							<a href="#" class="close">&#215;</a>
+						</div>
+					<% end %>
 				</ul>
 			</div>
 		</div>

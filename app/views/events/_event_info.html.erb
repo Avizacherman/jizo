@@ -1,13 +1,13 @@
-<div id="panel<%=event['id']%>a" class="content">
+<div id="panel<%=event['id']%>a" class="content accordion-content">
 	<div class="links">
 		<ul class="inline-list show-for-small-only">
 			<li><a href="#event-map-wrapper">Go To Map</a></li>
 			<li><a href="#event-directions-wrapper">Go To Directions</a></li>
 		</ul>
 	</div>
-
-	<div class="description"> 
-		<p><span>Date of the Event:</span> <span class="start-date-value"><%= event['start_time'] %></span></p>
+	<div class="event-date">
+		<p><span>Date of the Event:</span> <span class="start-date-value"><%= event['start_time'] %></span></p>	
+	</div>
 	<div class="start-time">
 		<p><span>Start Time:</span> <span class="start-time-value"> <%= event['start_time'] %></span></p>
 	</div>
@@ -16,7 +16,7 @@
 		<p><span>End Time:</span> <span class="end-time-value"><%= event['end_time'] %></span></p>
 	</div>
 	<% end %>
+	<div class="description"> 
 		<p><span>Description:</span> <%= event['description'] %></p>
 	</div>
-
 </div>
