@@ -19,10 +19,11 @@ class SettingsController < ApplicationController
           Setting.create ({transportation: params[:transportation], :location => params[:location], :geocoded_location => "", custom_location: "", :user_id => user.id})
          end
      end
-      render nothing: true
+      render json: {settings: "Updated"}
     end
 
     def load
+
       user = User.find_by(:access_token => session[:access_token])
       render json: {settings: user.settings}
     end
