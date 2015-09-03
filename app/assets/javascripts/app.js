@@ -1,18 +1,70 @@
-$(document).ready(initialize);
+$(document).ready(function(){
+
+	initialize()
+	//FORMAT DATE AND TIMES
+	var timeZone = jstz.determine().name()
+
+	$(".start-date-value").each(function () {
+		initialValue = $(this).text()
+		formatedValue = moment(initialValue).tz(timeZone).format('LL')
+		$(this).text(formatedValue)
+	})
+
+	$(".start-time-value").each(function () {
+		initialValue = $(this).text()
+		formatedValue = moment(initialValue).tz(timeZone).format('ha z')
+		$(this).text(formatedValue)
+
+	})
+
+	$(".end-time-value").each(function () {
+		initialValue = $(this).text()
+		formatedValue = moment(initialValue).tz(timeZone).format('ha z')
+		$(this).text(formatedValue)
+
+	})
+
+});
 $(document).on('page:load', initialize);
 
+
 function initialize() {
+	//Load and apply settings if they exist, otherwise ask user to set them
+
+	set = utilize_settings()
 
 	var yourLat;
 	var yourLng;
 	var bKey = 'AIzaSyDXo_-3dpRQz_yvYHP6yEaYUA1_vYlxglM';
 
 	//GET LOCATION
-
 	navigator.geolocation.getCurrentPosition(function (pos) {
+
 		yourLat = pos.coords.latitude;
 		yourLng = pos.coords.longitude;
+
 		if (yourLng) {
+
+			if (set.location === 'enter_location') {
+				coords = set.geocoded_location.split(', ')
+				yourLat = parseFloat(coords[0])
+				yourLng = parseFloat(coords[1])
+			}
+
+			switch (set.transportation) {
+				case 'bicycling':
+					travelMode = google.maps.TravelMode.BICYCLING;
+					break;
+				case 'driving':
+					travelMode = google.maps.TravelMode.DRIVING;
+					break;
+				case 'transit':
+					travelMode = google.maps.TravelMode.TRANSIT
+					break;
+				case 'walking':
+					travelMode = google.maps.TravelMode.WALKING
+			}
+
 			clearInterval(progressBar);
 			$(".meter").css({
 				"width": "100%"
@@ -21,32 +73,32 @@ function initialize() {
 			$("#events-body-content").addClass("show-block");
 			heightMagic();
 
-        baseMap = new google.maps.Map($('#map')[0], {
-            center: {
-                lat: yourLat,
-                lng: yourLng
-            },
-            zoom: 15
-        });
-        baseMarker = new google.maps.Marker({
-            position: {
-                lat: yourLat,
-                lng: yourLng
-            },
-            label: "U",
-            map: baseMap
-        });
+			//CREATES MAP AND CENTERS ON CURRENT LOCATION
+			//CREATES MAP FRAME
+			baseMap = new google.maps.Map($('#map')[0], {
+				center: {
+					lat: yourLat,
+					lng: yourLng
+				},
+				zoom: 15
+			});
+			//CREATES MAP MARKER
+			baseMarker = new google.maps.Marker({
+				position: {
+					lat: yourLat,
+					lng: yourLng
+				},
+				label: "U",
+				map: baseMap
+			});
 		}
 	})
 
-	//CREATES MAP AND CENTERS ON CURRENT LOCATION
-
-
+	//IF LOADING METER EXISTS, RUN LOAD METER
 	if ($(".meter")) {
 		var progress = 0;
 		var progressBar = setInterval(function () {
 			progress += 1;
-			console.log(progress);
 			$(".meter").css({
 				"width": progress + '%'
 			});
@@ -59,7 +111,7 @@ function initialize() {
 		}, 40);
 	}
 
-	//PASSES INFO FROM 
+	//PASSES INFO FROM EVENTS LIST TO MAPS AND DIRECTIONS
 	$(".hasLocation").each(function () {
 		var lat = parseFloat($(this).attr("lat"))
 		var lng = parseFloat($(this).attr("lng"))
@@ -72,6 +124,7 @@ function initialize() {
 				zoom: 15
 			});
 
+			//SET MAP MARKER
 			marker = new google.maps.Marker({
 				position: {
 					lat: lat,
@@ -81,7 +134,7 @@ function initialize() {
 				map: map
 			})
 
-
+			//
 			var directionsService = new google.maps.DirectionsService;
 			var directionsDisplay = new google.maps.DirectionsRenderer;
 			directionsDisplay.setMap(map);
@@ -94,82 +147,101 @@ function initialize() {
 				lng: lng
 			})
 
-            directions = $.get('/get_directions', {origin: yourLat +"," + yourLng, destination: lat +"," + lng}).done(function(){
-                giveDirections(directions.responseJSON.directions)
-            })
-
+			//CALL AJAX GET DIRECTIONS ROUTE AND DISPLAY DIRECTIONS 
+			$.get('/get_directions', {
+				origin: yourLat + "," + yourLng,
+				destination: lat + "," + lng
+			}).done(function (data) {
+				console.log()
+				giveDirections(data.directions)
+				heightMagic();
+				$saveButton = $('<button class="tiny facebook right">')
+				$saveButton.text('Save Directions')
+				$saveButton.on('click', function () {
+					$.post('/save_directions', {
+						origin: yourLat + "," + yourLng,
+						destination: lat + "," + lng,
+						directions_data: $('#event-directions-display').html()
+					})
+					$saveButton.addClass("hide");
+				})
+				$saveContainer = $(".panel.start")
+				$saveContainer.append($saveButton)
+			})
 		})
 	})
 
-	verticalMagic();
-}
 
-//HOMEPAGE CENTERING - VERTICAL MAGIC
-function verticalMagic() {
-	if ($('.vertical-magic') < 1) {
-		return;
+	//SHIFT OMITTED RESULTS TO TOP
+	$eventListAccordion = $("ul.accordion.height-magic");
+	$omittedAlert = $(".alert-box.omitted");
+	$($eventListAccordion).prepend($omittedAlert);
+
+	//AUTOLOAD PRIVACY MODAL
+	if (window.location.hash === "#privacy") {
+		$('#privacy-policy').foundation('reveal', 'open')
 	}
-	var resizeFunc = function () {
-		var header = $('#header-wrapper');
-		var content = $('.vertical-magic');
-		var wrapper = $(content).closest('#hero-body-wrapper');
-		var content_height = $(content).outerHeight(false);
-		var wrapper_height = $(wrapper).outerHeight(true);
-		var header_height = $(header).outerHeight(true);
-		var height = (wrapper_height - header_height - content_height) / 2;
 
-		content.css({
-			'margin-top': height + 'px',
-			'visibility': 'visible'
+	//SETTINGS
+
+	$('#submitSettings').click(function () {
+		var params = {
+			transportation: $("input[name=transportation]:checked").val(),
+			location: $("input[name=location]:checked").val()
+		};
+		if ($("input[name=location]:checked").val() == "enter_location") {
+			params["customLocation"] = $("#custom_location").val();
+		}
+		$.post("/settings", params).done(function () {
+			initialize()
+
+			$('#settingsModal').foundation('reveal', 'close')
 		});
-	};
+	})
 
-	resizeFunc();
-	$(window).resize(function () {
-		resizeFunc();
-	});
+
 }
+//END OF INITIALIZE
+
 //EVENT LIST FULL HEIGHT - HEIGHT MAGIC
 function heightMagic() {
 	if ($('.height-magic') < 1) {
 		return;
 	}
 	var resizeFunc = function () {
-
 		var content = $('.height-magic');
-
 		var header = $('header')
 		var header_height = $(header).outerHeight(true);
+
+		var h2 = $("#events-body-content h2")
+		var h2_height = $(h2).outerHeight(true);
 
 		content.css({
 			'display': 'none'
 		});
-
 		var wrapper = $(content).closest('#events-body-content');
 		var wrapper_height = $(wrapper).outerHeight(true);
-		var height = (wrapper_height - header_height - 15);
-
+		var height = (wrapper_height - header_height - h2_height) - 15;
 		content.css({
 			'height': height + 'px',
 			'display': 'block',
-			'overflow-y': 'scroll'
+			'overflow-y': 'auto'
 		});
 	};
-
 	resizeFunc();
-
 	$(window).resize(function () {
 		resizeFunc();
 	});
 }
 
-
 //GOOGLE MAPS GET AND DISPLAY ROUTE
+
+
 function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination) {
 	directionsService.route({
 		origin: origin,
 		destination: destination,
-		travelMode: google.maps.TravelMode.DRIVING
+		travelMode: travelMode
 	}, function (response, status) {
 		if (status === google.maps.DirectionsStatus.OK) {
 			directionsDisplay.setDirections(response);
@@ -177,6 +249,19 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
 			window.alert('Directions request failed due to ' + status);
 		}
 	});
+}
+
+//TAKES DIRECTION OBJECT AND APPENDS THE DIRECTIONS TO DOM
+function giveDirections(obj) {
+	$eventContainer = $("#event-directions-display")
+	$eventContainer.html("")
+	obj.forEach(function (o, index) {
+		var stepNo = index + 1;
+		$div = $('<div class="panel">').attr("id", "step-" + stepNo).html("Go " + o.distance.text + " " + o.html_instructions + " approximately " + o.duration.text)
+		$eventContainer.append($div)
+	})
+	$($eventContainer).prepend($("<div class='panel start clearfix'><strong>Starting Trip.</strong></div>"));
+	$($eventContainer).append($("<div class='panel end'><strong>You have reached your desination.</strong></div>"));
 }
 
 //FACEBOOK
@@ -198,3 +283,62 @@ window.fbAsyncInit = function () {
 	js.src = "//connect.facebook.net/en_US/sdk.js";
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+//SETTINGS
+function utilize_settings() {
+	$.get('/settings/load').done(function (data) {
+		console.log(data)
+		if (data.settings[0]) {
+			set = data.settings[0]
+			console.log(set)
+			$('input[value=' + set.transportation + ']').attr('checked', 'true')
+			$('input[value=' + set.location + ']').attr('checked', 'true')
+			if (set.location === 'enter_location') {
+				$(".text").removeClass("hide");
+				$('.text').val(set.custom_location)
+			}
+
+			return set
+
+
+			$('#submitSettings').click(function (e) {
+				e.preventDefault()
+				var params = {
+					transportation: $("input[name=transportaion]:checked").val(),
+					location: $("input[name=location]:checked").val()
+				};
+				if ($("input[name=location]:checked").val() == "enter_location") {
+					params["customLocation"] = $("#cutom_location").val();
+				}
+				$.post("/settings", params);
+			})
+		} else {
+			$('#settingsModal').foundation('reveal', 'open')
+		}
+	})
+}
+
+//SHOW MORE - EITHER DETECT HEIGHT, COUNT CHARS OR WORDS. - CURRENTLY BROKEN.
+//function showMagic() {
+//	$('.description p').each(function () {
+//		var iTotalWords = $(this).text().split(' ').length;
+//		var charLength = $(this).text().length;
+//		console.log(charLength);
+//
+//
+//		var showMore = $('.description p').find('.show-more')
+//		console.log(showMore)
+//
+//		if (showMore != 1) {
+//			if (charLength > 50) {
+//				$(this).parent().parent().append('<p class="show-more"><a href="#"><b>Show More... ' + iTotalWords + ' words </b></a></p>');
+//			}
+//		}
+//
+//	});
+//}
+//$('.show-more').on("click", function () {
+//	$(this).prev('.description').css({
+//		'max-height': '100%'
+//	})
+//})

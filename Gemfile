@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
+ruby "2.2.2"
+
 # FB Authorization gems
-gem "koala", "~>1.10.0rc"
 gem 'omniauth-facebook'
 
 
@@ -54,4 +55,5 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
+
 

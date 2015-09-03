@@ -7,17 +7,23 @@
 		<div id="events-list-wrapper" class="small-12 medium-6 medium-push-6 columns">
 			<div id="events-list-content" class="">
 				<h2>Events List</h2>
+				<% counter = 0 %>
 				<ul class="accordion height-magic" data-accordion>
 					<% @events.each do |event| %>
-					<li class="accordion-navigation">
 						<% if event['place'] && event['place']['location']%>
+						<li class="accordion-navigation">
 						<a class="hasLocation" lat="<%=event['place']['location']['latitude']%>" lng="<%=event['place']['location']['longitude']%>" href="#panel<%=event['id']%>a"> <%=event['name']%></a>
 						<%= render partial: "event_info", locals: {event: event} %>
+						</li>
 						<% else %>
-							<a href="#panel<%=event['id']%>a"> <%=event['name']%></a>
-										<%= render partial: "event_info", locals: {event: event} %>
+							<% counter +=1 %>
 						<% end %>
-					</li>
+					<% end %>
+					<% if counter != 0 %>
+						<div data-alert class="alert-box omitted">
+							<strong><%= counter %> events did not have location data and were omitted.</strong>
+							<a href="#" class="close">&#215;</a>
+						</div>
 					<% end %>
 				</ul>
 			</div>
@@ -34,9 +40,18 @@
 				<div id="event-directions-wrapper" class="small-12 columns">
 					<div id="event-directions-content">
 						<h2>Directions</h2>
+						<div id="event-directions-display">
+							<div id="event-directions-empty">
+								<h3>Please click on an event</h3>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div id="events-footer-wrapper">
+		<%= render "layouts/footer" %>
+	</div>
 </div>
+<%= render "layouts/settings_modal" %>
