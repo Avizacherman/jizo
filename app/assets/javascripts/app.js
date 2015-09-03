@@ -122,11 +122,12 @@ set = utilize_settings()
 			})
 
 			//CALL AJAX GET DIRECTIONS ROUTE AND DISPLAY DIRECTIONS 
-			directions = $.get('/get_directions', {
+			 $.get('/get_directions', {
 				origin: yourLat + "," + yourLng,
 				destination: lat + "," + lng
-			}).done(function () {
-				giveDirections(directions.responseJSON.directions)
+			}).done(function (data) {
+				console.log()
+				giveDirections(data.directions)
 				heightMagic();
 				$saveButton = $('<button class="tiny facebook right">')
 				$saveButton.text('Save Directions')
@@ -290,9 +291,10 @@ window.fbAsyncInit = function () {
 
 //SETTINGS
 function utilize_settings(){
-		settings = $.get('/settings/load').done(function(){
-		if(settings.responseJSON.settings[0]) {
-		set = settings.responseJSON.settings[0] 
+		$.get('/settings/load').done(function(data){
+			console.log(data)
+		if(data.settings[0]) {
+		set = data.settings[0] 
 		console.log(set)
 		$('input[value=' + set.transportation+ ']').attr('checked', 'true')
 		$('input[value=' + set.location+ ']').attr('checked', 'true')
