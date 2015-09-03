@@ -1,4 +1,4 @@
-#Introduction
+	#Introduction
 
 ## Project name: Jizo
 
@@ -6,10 +6,10 @@ This project is named Jizo in honor of the Japanese deity that is popular for it
 
 # Setup
 
-For Jizo the web app is setup using a number of frameworks, APIs, and Ruby gems. For starters, the framework we used for styling was done entirely in foundation. The two APIs used are Facebook's Graph API and Google's Google Maps API. The gems used in Jizo are Omniauth-facebook for authorization and login verification as well as HTTParty for the Graph calls.
+For Jizo the web app is setup using a number of frameworks, APIs, and Ruby gems. For starters, the framework we used for styling was done entirely in foundation. The APIs used are Facebook's Graph API and Google's Google's API. Within Google's APIs we used were geocoding, directions, and the Google Maps SDK. The gems used in Jizo are Omniauth-facebook for authorization and login verification as well as HTTParty for the Graph calls also pry for source code browsing.
 
 #How to Use
-To use this app the user must first sign into facebook by pressing on the facebook login button located at the top of our page. after the user have a list of events to pick and choose from, the user must then click on an event and will be prompted to choose or type in a starting location. After the user types in the location then on the lower left hand side of the page the user will be given directions to that event based on the starting location. The user will also have a map displaying the trip and an ability to save directions. Then if the user wants someone else to use this service then they should log out and re log in with a different facebook account.
+To use this app the user must first sign into facebook by pressing on the facebook login button located at the top of our page. after the user have a list of events to pick and choose from, the user must then click on an event and will be prompted to choose current location or type in a starting location and pick between different means of transportation. After the user types in the location, on the lower left hand side of the page the user will be given directions to that event based on the starting location picked. The user will also have a map displaying the trip. Then if the user wants someone else to use this service then they should log out and re-log in with a different facebook account.
 #Planing
 
 ###User Stories
@@ -24,17 +24,35 @@ To use this app the user must first sign into facebook by pressing on the facebo
 
 ######Users should be able to chose their start location to an event
 
+######Users should be able to chose their mode of transpertation
+
 ###Front-end Wireframes
 
 [wireframe](http://i.imgur.com/5Iq66Cw.png)
 
 ###Routes
+```
+  get '/events' => 'events#index'
+  get '/events/:id' => 'events#view'
+  get '/auth/facebook', as: 'auth_provider'
+  get '/auth/facebook/callback' => 'sessions#set_session'
+  get '/auth/failure' => 'sessions#session_error'
+  get '/logout' => 'sessions#end_session'
 
-Coming soon
+  get '/get_directions' => 'directions#get_directions'
 
+  post '/deactivate_app' => 'users#delete'
+
+  post '/save_directions' => 'directions#save_directions'
+
+  
+  post '/settings' => 'settings#save'
+  get '/settings/load' => 'settings#load'
+
+```
 ###Database Design(ERD)
 
-[ERD](http://i.imgur.com/R4138aL.png)
+[ERD](http://i.imgur.com/LfFpv9t.png)
 
 ###Trello
 Link to board: https://trello.com/b/8jWxfMiI/jizo

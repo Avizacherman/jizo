@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20150902211712) do
   enable_extension "plpgsql"
 
   create_table "directions", force: :cascade do |t|
-    t.string  "directions_data"
+    t.text    "directions_data"
     t.integer "user_id"
     t.string  "origin"
     t.string  "destination"
