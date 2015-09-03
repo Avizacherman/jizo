@@ -33,13 +33,14 @@ FOUNDATION UI COLORS
 	color: #FFFFFF;
 }
 html {
-	min-height: 100%;
+
 }
 body {
 	background: #333333;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
-	font-size: 16px min-height: 100%;
+	font-size: 16px;
+	min-height: 100%;
 	min-width: 320px;
 }
 h1,
@@ -70,6 +71,13 @@ header h1 img {
 }
 .top-bar a {
 	text-decoration: none;
+}
+.top-bar .fb-pic img{
+	height: 1.75rem;
+	position: relative;
+	padding: 0 0.9375rem;
+	padding-right: 0;
+	top: 0.53125rem;
 }
 .top-bar-section ul li > a.button.facebook {
 	background-color: #3b5998;
@@ -322,11 +330,17 @@ header h1 img {
 /*BEGIN FOOTER*/
 
 footer {
-	font-size: .5em;
-	text-align: right;
+
 }
 footer p {
 	margin: 0;
+	color: #ecf0f1;
+	font-size: .5em;
+}
+
+footer.row {
+	max-width: 100%;
+
 }
 
 /*END FOOTER*/

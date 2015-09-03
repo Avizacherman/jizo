@@ -143,19 +143,6 @@ function initialize() {
 	$omittedAlert = $(".alert-box.omitted");
 	$($eventListAccordion).prepend($omittedAlert);
 
-	//COUNT WORDS IN DESCRIPTION
-	$('.description').each(function (i) {
-		var iTotalWords = $(this).text().split(' ').length;
-		if (iTotalWords > 100) {
-			var showMore = $(this).parent().append('<p class="show-more"><a href="#"><b>' + iTotalWords + ' words </b></a></p>');
-			$('.show-more').on("click", function () {
-				$('.show-more').closest('.description').css({
-					'max-height': '100%'
-				})
-			}
-		)}
-	});
-
 	//AUTOLOAD PRIVACY MODAL
 	if (window.location.hash === "#privacy") {
 		$('#privacy-policy').foundation('reveal', 'open')
@@ -163,7 +150,6 @@ function initialize() {
 
 }
 //END OF INITIALIZE
-
 
 //EVENT LIST FULL HEIGHT - HEIGHT MAGIC
 function heightMagic() {
@@ -243,3 +229,30 @@ window.fbAsyncInit = function () {
 	js.src = "//connect.facebook.net/en_US/sdk.js";
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+
+//SHOW MORE - EITHER DETECT HEIGHT, COUNT CHARS OR WORDS. - CURRENTLY BROKEN.
+//function showMagic() {
+//	$('.description p').each(function () {
+//		var iTotalWords = $(this).text().split(' ').length;
+//		var charLength = $(this).text().length;
+//		console.log(charLength);
+//
+//		
+//		var showMore = $('.description p').find('.show-more')
+//		console.log(showMore)
+//		
+//		if (showMore != 1) {
+//			if (charLength > 50) {
+//				$(this).parent().parent().append('<p class="show-more"><a href="#"><b>Show More... ' + iTotalWords + ' words </b></a></p>');
+//			}
+//		}
+//
+//	});
+//}
+//$('.show-more').on("click", function () {
+//	$(this).prev('.description').css({
+//		'max-height': '100%'
+//	})
+//})
+
