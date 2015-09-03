@@ -1,4 +1,30 @@
-$(document).ready(initialize);
+$(document).ready(function(){
+
+	initialize()
+	//FORMAT DATE AND TIMES
+	var timeZone = jstz.determine().name()
+
+	$(".start-date-value").each(function () {
+		initialValue = $(this).text()
+		formatedValue = moment(initialValue).tz(timeZone).format('LL')
+		$(this).text(formatedValue)
+	})
+
+	$(".start-time-value").each(function () {
+		initialValue = $(this).text()
+		formatedValue = moment(initialValue).tz(timeZone).format('ha z')
+		$(this).text(formatedValue)
+
+	})
+
+	$(".end-time-value").each(function () {
+		initialValue = $(this).text()
+		formatedValue = moment(initialValue).tz(timeZone).format('ha z')
+		$(this).text(formatedValue)
+
+	})
+
+});
 $(document).on('page:load', initialize);
 
 
@@ -9,7 +35,6 @@ set = utilize_settings()
 
 	var yourLat;
 	var yourLng;
-	var timeZone = jstz.determine().name()
 	var bKey = 'AIzaSyDXo_-3dpRQz_yvYHP6yEaYUA1_vYlxglM';
 
 	//GET LOCATION
@@ -146,28 +171,7 @@ set = utilize_settings()
 		})
 	})
 
-	//FORMAT DATE AND TIMES
-	$(".start-date-value").each(function () {
-		initialValue = $(this).text()
-		formatedValue = moment(initialValue).tz(timeZone).format('LL')
-		$(this).text(formatedValue)
-	})
-
-	$(".start-time-value").each(function () {
-		initialValue = $(this).text()
-		if(moment(initialValue).tz(timeZone).format('ha z') != 'Invalid date'){
-		formatedValue = moment(initialValue).tz(timeZone).format('ha z')}
-		$(this).text(formatedValue)
-
-	})
-
-	$(".end-time-value").each(function () {
-		initialValue = $(this).text()
-		if(moment(initialValue).tz(timeZone).format('ha z') != 'Invalid date'){
-		formatedValue = moment(initialValue).tz(timeZone).format('ha z')}
-		$(this).text(formatedValue)
-
-	})
+	
 
 	//SHIFT OMITTED RESULTS TO TOP
 	$eventListAccordion = $("ul.accordion.height-magic");
