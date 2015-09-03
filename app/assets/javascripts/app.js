@@ -155,16 +155,16 @@ set = utilize_settings()
 
 	$(".start-time-value").each(function () {
 		initialValue = $(this).text()
-		if(moment(initialValue).tz(timeZone).format('ha z') != 'Invalid date')
-		formatedValue = moment(initialValue).tz(timeZone).format('ha z')
+		if(moment(initialValue).tz(timeZone).format('ha z') != 'Invalid date'){
+		formatedValue = moment(initialValue).tz(timeZone).format('ha z')}
 		$(this).text(formatedValue)
 
 	})
 
 	$(".end-time-value").each(function () {
 		initialValue = $(this).text()
-		if(moment(initialValue).tz(timeZone).format('ha z') != 'Invalid date')
-		formatedValue = moment(initialValue).tz(timeZone).format('ha z')
+		if(moment(initialValue).tz(timeZone).format('ha z') != 'Invalid date'){
+		formatedValue = moment(initialValue).tz(timeZone).format('ha z')}
 		$(this).text(formatedValue)
 
 	})
