@@ -9,6 +9,7 @@ set = utilize_settings()
 
 	var yourLat;
 	var yourLng;
+	var timeZone = jstz.determine().name()
 	var bKey = 'AIzaSyDXo_-3dpRQz_yvYHP6yEaYUA1_vYlxglM';
 
 	//GET LOCATION
@@ -148,20 +149,20 @@ set = utilize_settings()
 	//FORMAT DATE AND TIMES
 	$(".start-date-value").each(function () {
 		initialValue = $(this).text()
-		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('LL')
+		formatedValue = moment(initialValue).tz(timeZone).format('LL')
 		$(this).text(formatedValue)
 	})
 
 	$(".start-time-value").each(function () {
 		initialValue = $(this).text()
-		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('ha z')
+		formatedValue = moment(initialValue).tz(timeZone).format('ha z')
 		$(this).text(formatedValue)
 
 	})
 
 	$(".end-time-value").each(function () {
 		initialValue = $(this).text()
-		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('ha z')
+		formatedValue = moment(initialValue).tz(timeZone).format('ha z')
 		$(this).text(formatedValue)
 
 	})
