@@ -30,8 +30,8 @@ $(document).on('page:load', initialize);
 
 function initialize() {
 	//Load and apply settings if they exist, otherwise ask user to set them
-	
-set = utilize_settings()
+
+	set = utilize_settings()
 
 	var yourLat;
 	var yourLng;
@@ -39,19 +39,19 @@ set = utilize_settings()
 
 	//GET LOCATION
 	navigator.geolocation.getCurrentPosition(function (pos) {
-		
+
 		yourLat = pos.coords.latitude;
 		yourLng = pos.coords.longitude;
-		
+
 		if (yourLng) {
-			
-			 if (set.location === 'enter_location'){
+
+			if (set.location === 'enter_location') {
 				coords = set.geocoded_location.split(', ')
 				yourLat = parseFloat(coords[0])
 				yourLng = parseFloat(coords[1])
 			}
 
-			switch (set.transportation){
+			switch (set.transportation) {
 				case 'bicycling':
 					travelMode = google.maps.TravelMode.BICYCLING;
 					break;
@@ -148,7 +148,7 @@ set = utilize_settings()
 			})
 
 			//CALL AJAX GET DIRECTIONS ROUTE AND DISPLAY DIRECTIONS 
-			 $.get('/get_directions', {
+			$.get('/get_directions', {
 				origin: yourLat + "," + yourLng,
 				destination: lat + "," + lng
 			}).done(function (data) {
@@ -171,49 +171,37 @@ set = utilize_settings()
 		})
 	})
 
-	
 
 	//SHIFT OMITTED RESULTS TO TOP
 	$eventListAccordion = $("ul.accordion.height-magic");
 	$omittedAlert = $(".alert-box.omitted");
 	$($eventListAccordion).prepend($omittedAlert);
 
-	//COUNT WORDS IN DESCRIPTION
-	$('.description').each(function (i) {
-		var iTotalWords = $(this).text().split(' ').length;
-		if (iTotalWords > 100) {
-			var showMore = $(this).parent().append('<p class="show-more"><a href="#"><b>' + iTotalWords + ' words </b></a></p>');
-			$('.show-more').on("click", function () {
-				$('.show-more').closest('.description').css({
-					'max-height': '100%'
-				})
-			}
-		)}
-	});
-
 	//AUTOLOAD PRIVACY MODAL
 	if (window.location.hash === "#privacy") {
 		$('#privacy-policy').foundation('reveal', 'open')
 	}
 
-//SETTINGS
+	//SETTINGS
 
-	$('#submitSettings').click(function() {	
-	var params = {transportation: $("input[name=transportation]:checked").val(), location: $("input[name=location]:checked").val()};
-	if ($("input[name=location]:checked").val() == "enter_location"){
-		params["customLocation"] = $("#custom_location").val();
-	}
-	$.post("/settings", params).done(function(){
+	$('#submitSettings').click(function () {
+		var params = {
+			transportation: $("input[name=transportation]:checked").val(),
+			location: $("input[name=location]:checked").val()
+		};
+		if ($("input[name=location]:checked").val() == "enter_location") {
+			params["customLocation"] = $("#custom_location").val();
+		}
+		$.post("/settings", params).done(function () {
 			initialize()
 
-		$('#settingsModal').foundation('reveal', 'close')
-	});
-})
+			$('#settingsModal').foundation('reveal', 'close')
+		});
+	})
 
 
 }
 //END OF INITIALIZE
-
 
 //EVENT LIST FULL HEIGHT - HEIGHT MAGIC
 function heightMagic() {
@@ -297,23 +285,60 @@ window.fbAsyncInit = function () {
 }(document, 'script', 'facebook-jssdk'));
 
 //SETTINGS
-function utilize_settings(){
-		$.get('/settings/load').done(function(data){
-			console.log(data)
-		if(data.settings[0]) {
-		set = data.settings[0] 
-		console.log(set)
-		$('input[value=' + set.transportation+ ']').attr('checked', 'true')
-		$('input[value=' + set.location+ ']').attr('checked', 'true')
-		if (set.location === 'enter_location'){
-					$(".text").removeClass("hide");
-					$('.text').val(set.custom_location)
-		}
-		
-		return set
+function utilize_settings() {
+	$.get('/settings/load').done(function (data) {
+		console.log(data)
+		if (data.settings[0]) {
+			set = data.settings[0]
+			console.log(set)
+			$('input[value=' + set.transportation + ']').attr('checked', 'true')
+			$('input[value=' + set.location + ']').attr('checked', 'true')
+			if (set.location === 'enter_location') {
+				$(".text").removeClass("hide");
+				$('.text').val(set.custom_location)
+			}
+
+			return set
 
 
+			$('#submitSettings').click(function (e) {
+				e.preventDefault()
+				var params = {
+					transportation: $("input[name=transportaion]:checked").val(),
+					location: $("input[name=location]:checked").val()
+				};
+				if ($("input[name=location]:checked").val() == "enter_location") {
+					params["customLocation"] = $("#cutom_location").val();
+				}
+				$.post("/settings", params);
+			})
 		} else {
 			$('#settingsModal').foundation('reveal', 'open')
 		}
-})}
+	})
+}
+
+//SHOW MORE - EITHER DETECT HEIGHT, COUNT CHARS OR WORDS. - CURRENTLY BROKEN.
+//function showMagic() {
+//	$('.description p').each(function () {
+//		var iTotalWords = $(this).text().split(' ').length;
+//		var charLength = $(this).text().length;
+//		console.log(charLength);
+//
+//
+//		var showMore = $('.description p').find('.show-more')
+//		console.log(showMore)
+//
+//		if (showMore != 1) {
+//			if (charLength > 50) {
+//				$(this).parent().parent().append('<p class="show-more"><a href="#"><b>Show More... ' + iTotalWords + ' words </b></a></p>');
+//			}
+//		}
+//
+//	});
+//}
+//$('.show-more').on("click", function () {
+//	$(this).prev('.description').css({
+//		'max-height': '100%'
+//	})
+//})

@@ -8,6 +8,7 @@ class EventsController < ApplicationController
 	def index
 		@title = "Jizo - My Events"
 		@events = get_events
+		@user = User.find_by(access_token: session[:access_token])
 	end
 
 	def get_events
