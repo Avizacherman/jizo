@@ -9,6 +9,7 @@ set = utilize_settings()
 
 	var yourLat;
 	var yourLng;
+	var timeZone = jstz.determine().name()
 	var bKey = 'AIzaSyDXo_-3dpRQz_yvYHP6yEaYUA1_vYlxglM';
 
 	//GET LOCATION
@@ -122,11 +123,12 @@ set = utilize_settings()
 			})
 
 			//CALL AJAX GET DIRECTIONS ROUTE AND DISPLAY DIRECTIONS 
-			directions = $.get('/get_directions', {
+			 $.get('/get_directions', {
 				origin: yourLat + "," + yourLng,
 				destination: lat + "," + lng
-			}).done(function () {
-				giveDirections(directions.responseJSON.directions)
+			}).done(function (data) {
+				console.log()
+				giveDirections(data.directions)
 				heightMagic();
 				$saveButton = $('<button class="tiny facebook right">')
 				$saveButton.text('Save Directions')
@@ -147,20 +149,22 @@ set = utilize_settings()
 	//FORMAT DATE AND TIMES
 	$(".start-date-value").each(function () {
 		initialValue = $(this).text()
-		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('LL')
+		formatedValue = moment(initialValue).tz(timeZone).format('LL')
 		$(this).text(formatedValue)
 	})
 
 	$(".start-time-value").each(function () {
 		initialValue = $(this).text()
-		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('ha z')
+		if(moment(initialValue).tz(timeZone).format('ha z') != 'Invalid date')
+		formatedValue = moment(initialValue).tz(timeZone).format('ha z')
 		$(this).text(formatedValue)
 
 	})
 
 	$(".end-time-value").each(function () {
 		initialValue = $(this).text()
-		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('ha z')
+		if(moment(initialValue).tz(timeZone).format('ha z') != 'Invalid date')
+		formatedValue = moment(initialValue).tz(timeZone).format('ha z')
 		$(this).text(formatedValue)
 
 	})
@@ -290,9 +294,10 @@ window.fbAsyncInit = function () {
 
 //SETTINGS
 function utilize_settings(){
-		settings = $.get('/settings/load').done(function(){
-		if(settings.responseJSON.settings[0]) {
-		set = settings.responseJSON.settings[0] 
+		$.get('/settings/load').done(function(data){
+			console.log(data)
+		if(data.settings[0]) {
+		set = data.settings[0] 
 		console.log(set)
 		$('input[value=' + set.transportation+ ']').attr('checked', 'true')
 		$('input[value=' + set.location+ ']').attr('checked', 'true')
