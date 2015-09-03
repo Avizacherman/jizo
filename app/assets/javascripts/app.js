@@ -1,17 +1,45 @@
 $(document).ready(initialize);
 $(document).on('page:load', initialize);
 
+
 function initialize() {
+	//Load and apply settings if they exist, otherwise ask user to set them
+
+	set = utilize_settings()
 
 	var yourLat;
 	var yourLng;
+	var timeZone = jstz.determine().name()
 	var bKey = 'AIzaSyDXo_-3dpRQz_yvYHP6yEaYUA1_vYlxglM';
 
 	//GET LOCATION
 	navigator.geolocation.getCurrentPosition(function (pos) {
+
 		yourLat = pos.coords.latitude;
 		yourLng = pos.coords.longitude;
+
 		if (yourLng) {
+
+			if (set.location === 'enter_location') {
+				coords = set.geocoded_location.split(', ')
+				yourLat = parseFloat(coords[0])
+				yourLng = parseFloat(coords[1])
+			}
+
+			switch (set.transportation) {
+				case 'bicycling':
+					travelMode = google.maps.TravelMode.BICYCLING;
+					break;
+				case 'driving':
+					travelMode = google.maps.TravelMode.DRIVING;
+					break;
+				case 'transit':
+					travelMode = google.maps.TravelMode.TRANSIT
+					break;
+				case 'walking':
+					travelMode = google.maps.TravelMode.WALKING
+			}
+
 			clearInterval(progressBar);
 			$(".meter").css({
 				"width": "100%"
@@ -95,11 +123,12 @@ function initialize() {
 			})
 
 			//CALL AJAX GET DIRECTIONS ROUTE AND DISPLAY DIRECTIONS 
-			directions = $.get('/get_directions', {
+			$.get('/get_directions', {
 				origin: yourLat + "," + yourLng,
 				destination: lat + "," + lng
-			}).done(function () {
-				giveDirections(directions.responseJSON.directions)
+			}).done(function (data) {
+				console.log()
+				giveDirections(data.directions)
 				heightMagic();
 				$saveButton = $('<button class="tiny facebook right">')
 				$saveButton.text('Save Directions')
@@ -120,20 +149,22 @@ function initialize() {
 	//FORMAT DATE AND TIMES
 	$(".start-date-value").each(function () {
 		initialValue = $(this).text()
-		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('LL')
+		formatedValue = moment(initialValue).tz(timeZone).format('LL')
 		$(this).text(formatedValue)
 	})
 
 	$(".start-time-value").each(function () {
 		initialValue = $(this).text()
-		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('ha z')
+		if (moment(initialValue).tz(timeZone).format('ha z') != 'Invalid date')
+			formatedValue = moment(initialValue).tz(timeZone).format('ha z')
 		$(this).text(formatedValue)
 
 	})
 
 	$(".end-time-value").each(function () {
 		initialValue = $(this).text()
-		formatedValue = moment(initialValue).tz(jstz.determine().name()).format('ha z')
+		if (moment(initialValue).tz(timeZone).format('ha z') != 'Invalid date')
+			formatedValue = moment(initialValue).tz(timeZone).format('ha z')
 		$(this).text(formatedValue)
 
 	})
@@ -147,6 +178,24 @@ function initialize() {
 	if (window.location.hash === "#privacy") {
 		$('#privacy-policy').foundation('reveal', 'open')
 	}
+
+	//SETTINGS
+
+	$('#submitSettings').click(function () {
+		var params = {
+			transportation: $("input[name=transportation]:checked").val(),
+			location: $("input[name=location]:checked").val()
+		};
+		if ($("input[name=location]:checked").val() == "enter_location") {
+			params["customLocation"] = $("#custom_location").val();
+		}
+		$.post("/settings", params).done(function () {
+			initialize()
+
+			$('#settingsModal').foundation('reveal', 'close')
+		});
+	})
+
 
 }
 //END OF INITIALIZE
@@ -183,11 +232,13 @@ function heightMagic() {
 }
 
 //GOOGLE MAPS GET AND DISPLAY ROUTE
+
+
 function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination) {
 	directionsService.route({
 		origin: origin,
 		destination: destination,
-		travelMode: google.maps.TravelMode.DRIVING
+		travelMode: travelMode
 	}, function (response, status) {
 		if (status === google.maps.DirectionsStatus.OK) {
 			directionsDisplay.setDirections(response);
@@ -231,21 +282,38 @@ window.fbAsyncInit = function () {
 }(document, 'script', 'facebook-jssdk'));
 
 //SETTINGS
+function utilize_settings() {
+	$.get('/settings/load').done(function (data) {
+		console.log(data)
+		if (data.settings[0]) {
+			set = data.settings[0]
+			console.log(set)
+			$('input[value=' + set.transportation + ']').attr('checked', 'true')
+			$('input[value=' + set.location + ']').attr('checked', 'true')
+			if (set.location === 'enter_location') {
+				$(".text").removeClass("hide");
+				$('.text').val(set.custom_location)
+			}
 
-$('#submitSettings').click(function (e) {
-	e.preventDefault()
+			return set
 
-	var params = {
-		transportation: $("input[name=transportaion]:checked").val(),
-		location: $("input[name=location]:checked").val()
-	};
-	if ($("input[name=location]:checked").val() == "enter_location") {
-		params["customLocation"] = $("#cutom_location").val();
-	}
 
-	$.post("/settings", params);
-
-})
+			$('#submitSettings').click(function (e) {
+				e.preventDefault()
+				var params = {
+					transportation: $("input[name=transportaion]:checked").val(),
+					location: $("input[name=location]:checked").val()
+				};
+				if ($("input[name=location]:checked").val() == "enter_location") {
+					params["customLocation"] = $("#cutom_location").val();
+				}
+				$.post("/settings", params);
+			})
+		} else {
+			$('#settingsModal').foundation('reveal', 'open')
+		}
+	})
+}
 
 //SHOW MORE - EITHER DETECT HEIGHT, COUNT CHARS OR WORDS. - CURRENTLY BROKEN.
 //function showMagic() {
@@ -254,10 +322,10 @@ $('#submitSettings').click(function (e) {
 //		var charLength = $(this).text().length;
 //		console.log(charLength);
 //
-//		
+//
 //		var showMore = $('.description p').find('.show-more')
 //		console.log(showMore)
-//		
+//
 //		if (showMore != 1) {
 //			if (charLength > 50) {
 //				$(this).parent().parent().append('<p class="show-more"><a href="#"><b>Show More... ' + iTotalWords + ' words </b></a></p>');

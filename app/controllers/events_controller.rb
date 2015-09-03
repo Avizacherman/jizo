@@ -16,5 +16,5 @@ class EventsController < ApplicationController
 		events = HTTParty.get("https://graph.facebook.com/me/events?access_token=#{session[:access_token]}").parsed_response['data']
 		
 	end
-
+	
 end

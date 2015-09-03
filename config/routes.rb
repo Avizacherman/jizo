@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   post '/save_directions' => 'directions#save_directions'
 
   
-  post '/settings' => 'settings#create'
+  post '/settings' => 'settings#save'
+  get '/settings/load' => 'settings#load'
 	#   Example of named route that can be invoked with purchase_url(id: product.id)
 	#     get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 	
